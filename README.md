@@ -1,0 +1,7 @@
+In order to use this project, you will need following things:
+
+
+1. Standard Assets: http://netstorage.unity3d.com/unity/afd2369b692a/WindowsStandardAssetsInstaller/UnityStandardAssetsSetup-5.1.2f1.exe
+2. This Skybox Asset: https://www.assetstore.unity3d.com/en/#!/content/6332
+
+After opening this project, you're expected to import [b]Standard Assets[/b] and the above [b]Skybox Asset[/b].
