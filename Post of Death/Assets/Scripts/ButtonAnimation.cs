@@ -9,10 +9,12 @@ public class ButtonAnimation : MonoBehaviour
 
     AudioSource buttonSound;
 
+
     void Start()
     {
         buttonSound = FindObjectOfType<AudioSource>();
     }
+
 
     public void PlayButtonAnimation()
     {
@@ -39,6 +41,7 @@ public class ButtonAnimation : MonoBehaviour
            // if (!b)
             {
                 DoPlayAnimation();
+                
               
             }
         }
