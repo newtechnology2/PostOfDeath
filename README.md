@@ -6,4 +6,4 @@ In order to use this project, you will need following things:
 
 After opening this project, you're expected to import Standard Assets and the above Skybox Asset.
 
-EDIT: You're no longer required to download Standard Assets if you don't have to use this project but still you should download it.
+EDIT: You're no longer required to download Standard Assets if you don't have, but still you should download it.
