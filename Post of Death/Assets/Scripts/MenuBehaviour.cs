@@ -11,7 +11,7 @@ public class MenuBehaviour : MonoBehaviour
     InputField ScreenRes_X;
     InputField ScreenRes_Y;
 
-    void Start()
+    void Awake()
     {
         Settings_SubMenu = GameObject.Find("Canvas").transform.FindChild("Settings_SubMenu");
         Credits_SubMenu = GameObject.Find("Canvas").transform.FindChild("Credits_SubMenu");
