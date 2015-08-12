@@ -3,9 +3,14 @@ using System;
 
 public class Sun : MonoBehaviour {
 	public Transform SunTransform;
+	public Light SunLight;
 	public float StartH;
 	public float Y_Angle;
 	public float Time_Scaler;
+	public Color LightColor;
+	public Color RiseSetColor;
+	public Color OffColor;
+	public float Exp;
 	
 	private float earth_to_sun,earth_radiuse,Height;
 	private Vector3 EarthCenterToLight;
@@ -47,11 +52,15 @@ public class Sun : MonoBehaviour {
 		rotate_light.SetTRS (translate, Quaternion.Euler (((float)(timespan.TotalHours - TheStartCallH) * Time_Scaler + StartH) / 12f * 180f - 90f, 0f, 0f), scale);
 		temp = rotate_light.MultiplyVector(temp);
 		temp.y = temp.y - earth_radiuse;
-		if (temp.y != 0)
+		if (temp.y != 0f)
 			temp = temp / Mathf.Abs (temp.y) * Height;
 		SunTransform.localRotation=Quaternion.LookRotation(-Vector3.Normalize(temp));
 		SunTransform.localPosition = temp;
-		
+		temp = Vector3.Normalize (temp);
+		if (temp.y >= 0f)
+			SunLight.color = Color.Lerp (RiseSetColor, LightColor, Mathf.Pow (temp.y, Exp));
+		else
+			SunLight.color = Color.Lerp (RiseSetColor, OffColor, Mathf.Pow (-temp.y, Exp/5f));
 		
 	}
 }
