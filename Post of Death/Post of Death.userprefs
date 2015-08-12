@@ -1,8 +1,10 @@
 ﻿<Properties>
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" PreferredExecutionTarget="MonoDevelop.Default" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Sun.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Masked shader.shader">
     <Files>
       <File FileName="Assets\Sun.cs" Line="11" Column="36" />
+      <File FileName="Assets\Moon.cs" Line="57" Column="25" />
+      <File FileName="Assets\Masked shader.shader" Line="14" Column="38" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>
