@@ -22,6 +22,9 @@ public class SplashScreen : MonoBehaviour
 
 	void Start () 
     {
+        //Default resolution
+        Screen.SetResolution(1280, 720, false);
+
         AllObjects = GameObject.FindObjectsOfType(typeof(Transform)) as Transform[];
         Cam = FindObjectOfType<Camera>();
 
