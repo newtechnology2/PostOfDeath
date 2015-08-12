@@ -22,6 +22,11 @@ public class MenuBehaviour : MonoBehaviour
         ScreenRes_Y = Settings_SubMenu.FindChild("ScreenRes_Height").gameObject.GetComponent<InputField>();
     }
 
+    public void LoadLevel_PlayMenu()
+    {
+        Application.LoadLevel("PostOfDeath");
+    }
+
     public void EnableCredits_SubMenu()
     {
         Credits_SubMenu.gameObject.SetActive(true);
