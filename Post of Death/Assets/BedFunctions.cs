@@ -4,9 +4,7 @@ using UnityEngine.UI;
 
 public class BedFunctions : MonoBehaviour {
 	public Transform camera;
-	public Transform RigidBody;
 	public Transform bed;
-	public Transform house;
 	public Text KeyMessage;
 	public float distane;
 
@@ -19,8 +17,10 @@ public class BedFunctions : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-		distane = (house.localPosition + camera.localPosition - bed.localPosition - RigidBody.localPosition).magnitude;
-		if ( distane< 2) {
+		Vector3 temp;
+		temp = (bed.position - camera.position);
+		distane = temp.magnitude;
+		if ( distane< 2.0f&&Vector3.Dot(camera.forward,temp)/distane>0.6) {
 			NearBed = true;
 			KeyMessage.text = "Press ";
 			KeyMessage.text = KeyMessage.text + Keys.PrimaryActionKey.Key.ToString ();
