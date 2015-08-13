@@ -54,7 +54,7 @@ public class Ghost : MonoBehaviour {
 			else{
 				double PasstTime=DateTime.Now.TimeOfDay.TotalSeconds-AttackStart;
 				Ghosts [i]=Vector3.Lerp (Ghosts [i],camera.position,(float)PasstTime/30.0f);
-				if ((float)PasstTime>30.0)
+				if ((float)PasstTime>21.0)
 				{
 					GhostOnAttack=-1;
 					GhostAttacked=true;
