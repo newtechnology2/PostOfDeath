@@ -9,40 +9,46 @@ public class Ghost : MonoBehaviour {
 	public int GhostOnAttack;
 	public Transform GhostT;
 
-	private Transform[] Ghosts;
+	private Vector3[] Ghosts;
 	private double AttackStart;
 
 	// Use this for initialization
 	void Start () {
-		Ghosts=new Transform[5];
-		GhostNums = 5;
+		Ghosts = new Vector3[GhostNums];
 		GhostOnAttack = -1;
-		GhostMusic.Play();
+		//GhostMusic.Play();
+		Vector3 RandomMovement=Vector3.zero;
+		for (int i=0; i<GhostNums; i++) {
+			RandomMovement.x = (float)Random.Range (-500, 500);
+			RandomMovement.z = (float)Random.Range (-500, 00);
+			Ghosts [i]=RandomMovement;
+		}
 	}
 	
 	// Update is called once per frame
 	void Update () {
-		GhostT = Ghosts [0];
 		Vector3 RandomMovement=Vector3.zero;
 
 		for (int i=0; i<GhostNums; i++) {
 			if (i != GhostOnAttack) {
-				RandomMovement.x = (float)Random.Range (-5, 5);
-				RandomMovement.y = (float)Random.Range (-5, 5);
-				RandomMovement = Ghosts [i].localPosition + RandomMovement;
-				RandomMovement.x=Mathf.Clamp(RandomMovement.x,-255,255);
-				RandomMovement.y=Mathf.Clamp(RandomMovement.y,-255,255);
-				Ghosts [i].localPosition=RandomMovement;
+				RandomMovement.x = (float)Random.Range (-1000, 1000)/100f;
+				RandomMovement.z = (float)Random.Range (-1000, 1000)/100f;
+				RandomMovement = Ghosts [i] + RandomMovement;
+				RandomMovement.x%=500;
+				RandomMovement.z%=500;
+				Ghosts [i]=RandomMovement;
 				RandomMovement=camera.position-RandomMovement;
-				RandomMovement.z=0.0f;
+				RandomMovement.y=0.0f;
+				if (i==0)
+					GhostT.localPosition = Ghosts [i];
 				if (GhostOnAttack == -1&&RandomMovement.magnitude<AttackStart) {
 					GhostOnAttack=i;
-					AttackStart=Clock.GetTime().Seconds;
+					AttackStart=Clock.GetTime().TotalSeconds;
 					GhostMusic.Play();
 				}
 			}
 			else{
-				double PasstTime=Clock.GetTime().Seconds-AttackStart;
+				double PasstTime=Clock.GetTime().TotalSeconds-AttackStart;
 				if (PasstTime>30)
 					GhostOnAttack=-1;
 
