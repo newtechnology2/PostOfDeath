@@ -39,7 +39,7 @@ public class Moon : MonoBehaviour {
 		Vector3 temp;
 		rotate_light.SetTRS (translate, Quaternion.Euler (0f, Y_Angle, 0f), scale);
 		temp = rotate_light.MultiplyVector(EarthCenterToLight);
-		rotate_light.SetTRS (translate, Quaternion.Euler (((float)Clock.GetTime ().TotalHours - moon_sun_rise_DT) / 12f * 180f - 90f, 0f, 0f), scale);
+		rotate_light.SetTRS (translate, Quaternion.Euler (((float)Clock.GetTime ().TotalHours*23f/24f - moon_sun_rise_DT) / 12f * 180f - 90f, 0f, 0f), scale);
 		temp = rotate_light.MultiplyVector(temp);
 		temp.y = temp.y - earth_radiuse;
 		if (temp.y != 0)
