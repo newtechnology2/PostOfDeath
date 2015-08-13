@@ -11,7 +11,7 @@ public class BedFunctions : MonoBehaviour {
 	public Vector3 EffectingDirection;
 	public float HalfEffectingAngleCos2;
 
-	public static bool NearBed;
+	public bool NearBed;
 
 	// Use this for initialization
 	void Start () {
