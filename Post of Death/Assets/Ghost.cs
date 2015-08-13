@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using System;
 using System.Collections;
 
 public class Ghost : MonoBehaviour {
@@ -21,8 +22,8 @@ public class Ghost : MonoBehaviour {
 		//GhostMusic.Play();
 		Vector3 RandomMovement=Vector3.zero;
 		for (int i=0; i<GhostNums; i++) {
-			RandomMovement.x = (float)Random.Range (-500, 500);
-			RandomMovement.z = (float)Random.Range (-500, 00);
+			RandomMovement.x = (float)UnityEngine.Random.Range (-500, 500);
+			RandomMovement.z = (float)UnityEngine.Random.Range (-500, 500);
 			Ghosts [i]=RandomMovement;
 		}
 	}
@@ -36,31 +37,34 @@ public class Ghost : MonoBehaviour {
 
 		for (int i=0; i<GhostNums; i++) {
 			if (i != GhostOnAttack) {
-				RandomMovement.x = (float)Random.Range (-1000, 1000)/100f;
-				RandomMovement.z = (float)Random.Range (-1000, 1000)/100f;
+				RandomMovement.x = (float)UnityEngine.Random.Range (-1000, 1000)/100f;
+				RandomMovement.z = (float)UnityEngine.Random.Range (-1000, 1000)/100f;
 				RandomMovement = Ghosts [i] + RandomMovement;
 				RandomMovement.x%=500;
 				RandomMovement.z%=500;
 				Ghosts [i]=RandomMovement;
 				RandomMovement=camera.position-RandomMovement;
 				RandomMovement.y=0.0f;
-				if (i==0)
-					GhostT.localPosition = Ghosts [i];
 				if (GhostOnAttack == -1&&RandomMovement.magnitude<AttackRidious) {
 					GhostOnAttack=i;
-					AttackStart=Clock.GetTime().TotalSeconds;
+					AttackStart=DateTime.Now.TimeOfDay.TotalSeconds;
 					GhostMusic.Play();
 				}
 			}
 			else{
-				double PasstTime=Clock.GetTime().TotalSeconds-AttackStart;
-				if (PasstTime>30)
+				double PasstTime=DateTime.Now.TimeOfDay.TotalSeconds-AttackStart;
+				Ghosts [i]=Vector3.Lerp (Ghosts [i],camera.position,(float)PasstTime/30.0f);
+				if ((float)PasstTime>30.0)
 				{
 					GhostOnAttack=-1;
 					GhostAttacked=true;
+					RandomMovement.x = (float)UnityEngine.Random.Range (-500, 500);
+					RandomMovement.z = (float)UnityEngine.Random.Range (-500, 500);
+					Ghosts [i]=RandomMovement;
 				}
 				else
 					GhostAttacked=false;
+				GhostT.position = Ghosts [i];
 			}
 		}
 	}
