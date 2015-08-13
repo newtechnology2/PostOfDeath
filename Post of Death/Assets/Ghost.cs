@@ -9,7 +9,7 @@ public class Ghost : MonoBehaviour {
 	public int GhostOnAttack;
 	public Transform GhostT;
 
-	public static bool GhostAttacked;
+	public bool GhostAttacked;
 
 	private Vector3[] Ghosts;
 	private double AttackStart;
