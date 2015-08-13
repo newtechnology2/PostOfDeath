@@ -14,7 +14,7 @@ public class Clock : MonoBehaviour {
 	private static TimeSpan Time;
 	// Use this for initialization
 	void Start () {
-		Time_Scaler = 1;
+		Time_Scaler = 60;
 		TheStartCallTime = DateTime.Now;
 	}
 	

@@ -10,11 +10,11 @@ public class BedFunctions : MonoBehaviour {
 	public float HalfEffectingAngleCos1;
 	public Vector3 EffectingDirection;
 	public float HalfEffectingAngleCos2;
-
 	public bool NearBed;
 
 	// Use this for initialization
-	void Start () {
+	void Start () 
+	{
 		NearBed = false;
 	}
 	
