@@ -8,7 +8,9 @@ public class Ghost : MonoBehaviour {
 	public AudioSource GhostMusic;
 	public int GhostOnAttack;
 	public Transform GhostT;
-	
+
+	public static bool GhostAttacked;
+
 	private Vector3[] Ghosts;
 	private double AttackStart;
 	
@@ -28,7 +30,10 @@ public class Ghost : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
 		Vector3 RandomMovement=Vector3.zero;
-		
+
+		if (GhostOnAttack == -1)
+			GhostAttacked=false;
+
 		for (int i=0; i<GhostNums; i++) {
 			if (i != GhostOnAttack) {
 				RandomMovement.x = (float)Random.Range (-1000, 1000)/100f;
@@ -41,7 +46,7 @@ public class Ghost : MonoBehaviour {
 				RandomMovement.y=0.0f;
 				if (i==0)
 					GhostT.localPosition = Ghosts [i];
-				if (GhostOnAttack == -1&&RandomMovement.magnitude<AttackStart) {
+				if (GhostOnAttack == -1&&RandomMovement.magnitude<AttackRidious) {
 					GhostOnAttack=i;
 					AttackStart=Clock.GetTime().TotalSeconds;
 					GhostMusic.Play();
@@ -50,8 +55,12 @@ public class Ghost : MonoBehaviour {
 			else{
 				double PasstTime=Clock.GetTime().TotalSeconds-AttackStart;
 				if (PasstTime>30)
+				{
 					GhostOnAttack=-1;
-				
+					GhostAttacked=true;
+				}
+				else
+					GhostAttacked=false;
 			}
 		}
 	}

@@ -5,19 +5,19 @@ public class SleepAnim : MonoBehaviour
 {
 
 	// Use this for initialization
-	BedFunctions BedFunc;
+	BedFunctions B;
 	Animation AnimComponent;
 
 	void Start () 
 	{
-		BedFunc = FindObjectOfType<BedFunc> ();
-	
+		B = FindObjectOfType<BedFunctions> ();
+		AnimComponent = GetComponent<Animation> ();
 	}
 	
 	// Update is called once per frame
 	void Update () 
 	{
-		if (BedFunc.NearBed && Keys.SecondaryActionKey.pressed) 
+		if (B.NearBed && Keys.SecondaryActionKey.pressed) 
 		{
 			AnimComponent.Play("SleepAnim");
 		}
