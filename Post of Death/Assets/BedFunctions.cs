@@ -6,7 +6,10 @@ public class BedFunctions : MonoBehaviour {
 	public Transform camera;
 	public Transform bed;
 	public Text KeyMessage;
-	public float distane;
+	public float EffectingDistane;
+	public float HalfEffectingAngleCos1;
+	public Vector3 EffectingDirection;
+	public float HalfEffectingAngleCos2;
 
 	public static bool NearBed;
 
@@ -19,8 +22,9 @@ public class BedFunctions : MonoBehaviour {
 	void Update () {
 		Vector3 temp;
 		temp = (bed.position - camera.position);
-		distane = temp.magnitude;
-		if ( distane< 2.0f&&Vector3.Dot(camera.forward,temp)/distane>0.6) {
+		float ActualDist;
+		ActualDist = temp.magnitude;
+		if ( ActualDist< EffectingDistane&&Vector3.Dot(camera.forward,temp)/ActualDist>HalfEffectingAngleCos1&&(Vector3.Dot(temp,EffectingDirection)/ActualDist)/-EffectingDirection.magnitude>HalfEffectingAngleCos2) {
 			NearBed = true;
 			KeyMessage.text = "Press ";
 			KeyMessage.text = KeyMessage.text + Keys.PrimaryActionKey.Key.ToString ();
