@@ -92,6 +92,7 @@
      <Compile Include="Assets\Scripts\ButtonAnimation.cs" />
      <Compile Include="Assets\Scripts\CameraRotation.cs" />
      <Compile Include="Assets\Scripts\MenuBehaviour.cs" />
+     <Compile Include="Assets\Scripts\SleepAnim.cs" />
      <Compile Include="Assets\Scripts\SplashScreen.cs" />
      <Compile Include="Assets\Sun.cs" />
      <None Include="Assets\L_FG_Assets_Pack_Lite\Standard Assets\Effects\ImageEffects\Shaders\_BloomAndFlares\BlendOneOne.shader" />
