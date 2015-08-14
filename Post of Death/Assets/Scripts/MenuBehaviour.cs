@@ -6,6 +6,7 @@ public class MenuBehaviour : MonoBehaviour
 {
     Transform Settings_SubMenu;
     Transform Credits_SubMenu;
+    Transform Play_SubMenu;
     Transform Exit_SubMenu;
 
     InputField ScreenRes_X;
@@ -16,15 +17,36 @@ public class MenuBehaviour : MonoBehaviour
         Settings_SubMenu = GameObject.Find("Canvas").transform.FindChild("Settings_SubMenu");
         Credits_SubMenu = GameObject.Find("Canvas").transform.FindChild("Credits_SubMenu");
         Exit_SubMenu = GameObject.Find("Canvas").transform.FindChild("Exit_SubMenu");
+        Play_SubMenu = GameObject.Find("Canvas").transform.FindChild("Play_SubMenu");
 
 
         ScreenRes_X = Settings_SubMenu.FindChild("ScreenRes_Width").gameObject.GetComponent<InputField>();
         ScreenRes_Y = Settings_SubMenu.FindChild("ScreenRes_Height").gameObject.GetComponent<InputField>();
     }
 
+    public void StartNewGame()
+    {
+
+    }
+
+    public void LoadGame()
+    {
+
+    }
+
     public void LoadLevel_PlayMenu()
     {
         Application.LoadLevel("PostOfDeath");
+    }
+
+    public void EnablePlay_SubMenu()
+    {
+        Play_SubMenu.gameObject.SetActive(true);
+    }
+
+    public void DisablePlay_SubMenu()
+    {
+        Play_SubMenu.gameObject.SetActive(false);
     }
 
     public void EnableCredits_SubMenu()
