@@ -1,6 +1,7 @@
 using System;
 using UnityEngine;
 using UnityStandardAssets.CrossPlatformInput;
+using UnityEngine.UI;
 
 namespace UnityStandardAssets.Characters.FirstPerson
 {
@@ -8,6 +9,8 @@ namespace UnityStandardAssets.Characters.FirstPerson
     [RequireComponent(typeof (CapsuleCollider))]
     public class RigidbodyFirstPersonController : MonoBehaviour
     {
+
+
         [Serializable]
         public class MovementSettings
         {
@@ -17,7 +20,18 @@ namespace UnityStandardAssets.Characters.FirstPerson
             public float RunMultiplier = 2.0f;   // Speed when sprinting
 	        public KeyCode RunKey = KeyCode.LeftShift;
             public float JumpForce = 30f;
+            private float TimeElapsed = 0;
+
+
+            public Button StaminaBar1;
+            public Button StaminaBar2;
+            public Button StaminaBar3;
+            public Button StaminaBar4;
+            public Button StaminaBar5;
+
             public AnimationCurve SlopeCurveModifier = new AnimationCurve(new Keyframe(-90.0f, 1.0f), new Keyframe(0.0f, 1.0f), new Keyframe(90.0f, 0.0f));
+
+
             [HideInInspector] public float CurrentTargetSpeed = 8f;
 
 #if !MOBILE_INPUT
@@ -46,8 +60,42 @@ namespace UnityStandardAssets.Characters.FirstPerson
 #if !MOBILE_INPUT
 	            if (Input.GetKey(RunKey))
 	            {
-		            CurrentTargetSpeed *= RunMultiplier;
-		            m_Running = true;
+                    TimeElapsed += Time.deltaTime;
+
+                    if (TimeElapsed <= 5.0f)
+                    {
+                        CurrentTargetSpeed *= RunMultiplier;
+
+                        int NoBarsToBeReduced = (int)Mathf.Floor(TimeElapsed);
+
+                        if (NoBarsToBeReduced == 1)
+                            StaminaBar1.enabled = false;
+
+                        if (NoBarsToBeReduced == 2)
+                            StaminaBar2.enabled = false;
+
+                        if (NoBarsToBeReduced == 3)
+                            StaminaBar3.enabled = false;
+
+                        if (NoBarsToBeReduced == 4)
+                            StaminaBar4.enabled = false;
+
+                        if (NoBarsToBeReduced == 5)
+                            StaminaBar5.enabled = false;
+
+
+                    }
+                    else
+                    {
+                        StaminaBar1.enabled = false;
+                        StaminaBar2.enabled = false;
+                        StaminaBar3.enabled = false;
+                        StaminaBar4.enabled = false;
+                        StaminaBar5.enabled = false;
+                    }
+                   
+                    
+                    m_Running = true;
 	            }
 	            else
 	            {
@@ -121,6 +169,7 @@ namespace UnityStandardAssets.Characters.FirstPerson
             m_RigidBody = GetComponent<Rigidbody>();
             m_Capsule = GetComponent<CapsuleCollider>();
             mouseLook.Init (transform, cam.transform);
+
         }
 
 
