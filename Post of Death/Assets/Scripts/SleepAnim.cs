@@ -13,6 +13,8 @@ public class SleepAnim : MonoBehaviour
 
     bool Played = false;
 
+    bool PlayedReverseAnim = false;
+
     Transform MainCamera;
 
     SleepFix House_Programmer;
@@ -28,6 +30,8 @@ public class SleepAnim : MonoBehaviour
 
 
         Played = false;
+
+        PlayedReverseAnim = false;
 
         CannotSleepMsg.text = "";
 	}
@@ -74,12 +78,17 @@ public class SleepAnim : MonoBehaviour
 
             AnimComponent.Play("SleepAnim");
 
-            PlayerControl.enabled = true;
-
             Played = false;
-        
+
+            PlayedReverseAnim = true;
         }
 
+        if (PlayedReverseAnim && !AnimComponent.IsPlaying("SleepAnim"))
+        {
 
+            PlayerControl.enabled = true;
+
+            PlayedReverseAnim = false;
+        }
 	}
 }
