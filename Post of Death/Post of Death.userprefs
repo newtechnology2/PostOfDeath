@@ -1,8 +1,9 @@
 ﻿<Properties>
-  <MonoDevelop.Ide.Workspace />
+  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
   <MonoDevelop.Ide.Workbench ActiveDocument="Assets\MistFollowPlayer.cs">
     <Files>
-      <File FileName="Assets\MistFollowPlayer.cs" Line="14" Column="36" />
+      <File FileName="Assets\GravePlacer.cs" Line="137" Column="84" />
+      <File FileName="Assets\MistFollowPlayer.cs" Line="14" Column="72" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>
