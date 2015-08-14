@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 using UnityStandardAssets.Characters.FirstPerson;
+using UnityEngine.UI;
 
 public class SleepAnim : MonoBehaviour 
 {
@@ -14,13 +15,21 @@ public class SleepAnim : MonoBehaviour
 
     Transform MainCamera;
 
+    SleepFix House_Programmer;
+
+    public Text CannotSleepMsg;
+
 	void Start () 
 	{
-		B = FindObjectOfType<BedFunctions> ();
-		AnimComponent = GetComponent<Animation> ();
-		PlayerControl = GetComponent<RigidbodyFirstPersonController> ();
+		B = FindObjectOfType<BedFunctions>();
+		AnimComponent = GetComponent<Animation>();
+		PlayerControl = GetComponent<RigidbodyFirstPersonController>();
+        House_Programmer = FindObjectOfType<SleepFix>();
+
 
         Played = false;
+
+        CannotSleepMsg.text = "";
 	}
 	
 	// Update is called once per frame
@@ -33,6 +42,15 @@ public class SleepAnim : MonoBehaviour
 
         if (B.NearBed && Keys.PrimaryActionKey.pressed && !Played && !AnimComponent.IsPlaying("SleepAnim")) 
 		{
+            if (!House_Programmer.ShouldBeAbleToSleep)
+            {
+                CannotSleepMsg.text = "Cannot sleep from this position. Try another.";
+                return;
+            }
+            else
+                CannotSleepMsg.text = "";
+
+
             Debug.Log("Play Sleep Anim");
 
             AnimComponent["SleepAnim"].speed = +1;
@@ -41,6 +59,8 @@ public class SleepAnim : MonoBehaviour
 			AnimComponent.Play("SleepAnim");
         
             PlayerControl.enabled = false;
+
+            House_Programmer.ShouldBeAbleToSleep = false;
 
             Played = true;
 		}
