@@ -7,7 +7,7 @@ public class MistFollowPlayer : MonoBehaviour {
 	{
 		Vector3 Mist_xyz = Vector3.zero;
 		Mist_xyz.x = gameObject.transform.position.x;
-		Mist_xyz.y = gameObject.transform.position.y;
+		Mist_xyz.y = gameObject.transform.position.y + 3;
 		Mist_xyz.z = gameObject.transform.position.z;
 
 		GameObject go = GameObject.Find ("Mist");
