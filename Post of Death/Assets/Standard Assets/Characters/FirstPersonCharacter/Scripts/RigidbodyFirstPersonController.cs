@@ -20,9 +20,10 @@ namespace UnityStandardAssets.Characters.FirstPerson
             public float RunMultiplier = 2.0f;   // Speed when sprinting
 	        public KeyCode RunKey = KeyCode.LeftShift;
             public float JumpForce = 30f;
-            private float TimeElapsed = 0;
+            public float TimeElapsed = 0;
 
-
+            public bool RegenerateStamina = false;
+           
             public Button StaminaBar1;
             public Button StaminaBar2;
             public Button StaminaBar3;
@@ -60,9 +61,12 @@ namespace UnityStandardAssets.Characters.FirstPerson
 #if !MOBILE_INPUT
 	            if (Input.GetKey(RunKey))
 	            {
-                    TimeElapsed += Time.deltaTime;
+                    if (!RegenerateStamina)
+                    {
+                        TimeElapsed += Time.deltaTime;
+                    }
 
-                    if (TimeElapsed <= 5.0f)
+                    if (TimeElapsed <= 5.0f && !RegenerateStamina)
                     {
                         CurrentTargetSpeed *= RunMultiplier;
 
@@ -83,35 +87,19 @@ namespace UnityStandardAssets.Characters.FirstPerson
                         if (NoBarsToBeReduced == 5)
                             StaminaBar5.enabled = false;
 
-                        Debug.Log("NoBarsToBeReduced:" + NoBarsToBeReduced.ToString());
+
                     }
-                    else
+                    else if (!RegenerateStamina)
                     {
+                        StaminaBar1.enabled = false;
+                        StaminaBar2.enabled = false;
+                        StaminaBar3.enabled = false;
+                        StaminaBar4.enabled = false;
+                        StaminaBar5.enabled = false;
 
-                        int NoBarsToBeAdded = (int)Mathf.Floor(TimeElapsed);
+                        RegenerateStamina = true;
 
-                        Debug.Log("NoBarsToBeAdded:" + NoBarsToBeAdded.ToString());
-
-                        if (NoBarsToBeAdded == 6)
-                            StaminaBar1.enabled = true;
-
-                        if (NoBarsToBeAdded == 7)
-                            StaminaBar2.enabled = true;
-
-                        if (NoBarsToBeAdded == 8)
-                            StaminaBar3.enabled = true;
-
-                        if (NoBarsToBeAdded == 9)
-                            StaminaBar4.enabled = true;
-
-                        if (NoBarsToBeAdded == 10)
-                        {
-                            StaminaBar5.enabled = true;
-
-                            TimeElapsed = 0;
-                        }
-
-
+                        TimeElapsed = 0;
                     }
                    
                     
@@ -200,6 +188,35 @@ namespace UnityStandardAssets.Characters.FirstPerson
             if (CrossPlatformInputManager.GetButtonDown("Jump") && !m_Jump)
             {
                 m_Jump = true;
+            }
+
+            if (movementSettings.RegenerateStamina)
+            {
+                movementSettings.TimeElapsed += Time.deltaTime;
+
+                int NoBarsToBeAdded = (int)Mathf.Floor(movementSettings.TimeElapsed);
+
+                if (NoBarsToBeAdded == 2)
+                    movementSettings.StaminaBar1.enabled = true;
+
+                if (NoBarsToBeAdded == 4)
+                    movementSettings.StaminaBar2.enabled = true;
+
+                if (NoBarsToBeAdded == 6)
+                    movementSettings.StaminaBar3.enabled = true;
+
+                if (NoBarsToBeAdded == 8)
+                    movementSettings.StaminaBar4.enabled = true;
+
+                if (NoBarsToBeAdded == 10)
+                    movementSettings.StaminaBar5.enabled = true;
+
+
+                if (NoBarsToBeAdded >= 10)
+                {
+                    movementSettings.RegenerateStamina = false;
+                    movementSettings.TimeElapsed = 0;
+                }
             }
         }
 
