@@ -14,6 +14,7 @@ public class Ghost : MonoBehaviour {
 
 	private Vector3[] Ghosts;
 	private double AttackStart;
+	private Vector3 GhostStartAttackPos;
 	
 	// Use this for initialization
 	void Start () {
@@ -49,11 +50,12 @@ public class Ghost : MonoBehaviour {
 					GhostOnAttack=i;
 					AttackStart=DateTime.Now.TimeOfDay.TotalSeconds;
 					GhostMusic.Play();
+					GhostStartAttackPos=Ghosts [i];
 				}
 			}
 			else{
 				double PasstTime=DateTime.Now.TimeOfDay.TotalSeconds-AttackStart;
-				Ghosts [i]=Vector3.Lerp (Ghosts [i],camera.position,(float)PasstTime/30.0f);
+				Ghosts [i]=Vector3.Lerp (GhostStartAttackPos,camera.position,(float)PasstTime/21.0f);
 				if ((float)PasstTime>21.0)
 				{
 					GhostOnAttack=-1;
