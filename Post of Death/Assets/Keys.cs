@@ -31,6 +31,12 @@ public class Keys : MonoBehaviour {
 		public static bool pressed;
 		public static string KeyName;
 	}
+	public class ChangeToolActionKey
+	{
+		public static KeyCode Key;
+		public static bool pressed;
+		public static string KeyName;
+	}
 
 	// Use this for initialization
 	void Start () {
@@ -46,6 +52,9 @@ public class Keys : MonoBehaviour {
 		DropActionKey.Key = KeyCode.G;
 		DropActionKey.KeyName = "Drop Action";
 
+		ChangeToolActionKey.Key = KeyCode.Q;
+		ChangeToolActionKey.KeyName = "Change Tool Action";
+		
 	}
 	
 	// Update is called once per frame
@@ -56,5 +65,6 @@ public class Keys : MonoBehaviour {
 		SecondaryActionKey.pressed = Input.GetKeyDown (SecondaryActionKey.Key);
 		PickActionKey.pressed = Input.GetKeyDown (PickActionKey.Key);
 		DropActionKey.pressed = Input.GetKeyDown (DropActionKey.Key);
+		ChangeToolActionKey.pressed = Input.GetKeyDown (ChangeToolActionKey.Key);
 	}
 }
