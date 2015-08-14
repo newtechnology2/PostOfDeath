@@ -1,7 +1,11 @@
 ﻿using UnityEngine;
 using System.Collections;
+using UnityEngine.UI;
 
 public class Keys : MonoBehaviour {
+
+	public static string KeyText;
+	public Text KeyMessage;
 
 	public class PrimaryActionKey
 	{
@@ -10,6 +14,18 @@ public class Keys : MonoBehaviour {
 		public static string KeyName;
 	}
 	public class SecondaryActionKey
+	{
+		public static KeyCode Key;
+		public static bool pressed;
+		public static string KeyName;
+	}
+	public class PickActionKey
+	{
+		public static KeyCode Key;
+		public static bool pressed;
+		public static string KeyName;
+	}
+	public class DropActionKey
 	{
 		public static KeyCode Key;
 		public static bool pressed;
@@ -24,11 +40,21 @@ public class Keys : MonoBehaviour {
 		SecondaryActionKey.Key = KeyCode.H;
 		SecondaryActionKey.KeyName = "Secondary Action";
 
+		PickActionKey.Key = KeyCode.E;
+		PickActionKey.KeyName = "Pick Action";
+		
+		DropActionKey.Key = KeyCode.G;
+		DropActionKey.KeyName = "Drop Action";
+
 	}
 	
 	// Update is called once per frame
 	void Update () {
+		KeyMessage.text = KeyText;
+		KeyText = "";
 		PrimaryActionKey.pressed = Input.GetKeyDown (PrimaryActionKey.Key);
 		SecondaryActionKey.pressed = Input.GetKeyDown (SecondaryActionKey.Key);
+		PickActionKey.pressed = Input.GetKeyDown (PickActionKey.Key);
+		DropActionKey.pressed = Input.GetKeyDown (DropActionKey.Key);
 	}
 }

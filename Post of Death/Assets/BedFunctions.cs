@@ -5,7 +5,6 @@ using UnityEngine.UI;
 public class BedFunctions : MonoBehaviour {
 	public Transform camera;
 	public Transform bed;
-	public Text KeyMessage;
 	public float EffectingDistane;
 	public float HalfEffectingAngleCos1;
 	public Vector3 EffectingDirection;
@@ -26,14 +25,12 @@ public class BedFunctions : MonoBehaviour {
 		ActualDist = temp.magnitude;
 		if ( ActualDist< EffectingDistane&&Vector3.Dot(camera.forward,temp)/ActualDist>HalfEffectingAngleCos1&&(Vector3.Dot(temp,EffectingDirection)/ActualDist)/-EffectingDirection.magnitude>HalfEffectingAngleCos2) {
 			NearBed = true;
-			KeyMessage.text = "Press ";
-			KeyMessage.text = KeyMessage.text + Keys.PrimaryActionKey.Key.ToString ();
-			KeyMessage.text = KeyMessage.text + " to sleep" + '\n' + "Press ";
-			KeyMessage.text = KeyMessage.text + Keys.SecondaryActionKey.Key.ToString ();
-			KeyMessage.text = KeyMessage.text + " to save game";
+			Keys.KeyText = Keys.KeyText + '\n' + "Press ";
+			Keys.KeyText = Keys.KeyText + Keys.PrimaryActionKey.Key.ToString ();
+			Keys.KeyText = Keys.KeyText + " to sleep" + '\n' + "Press ";
+			Keys.KeyText = Keys.KeyText + Keys.SecondaryActionKey.Key.ToString ();
+			Keys.KeyText = Keys.KeyText + " to save game";
 		} else {
-			if (NearBed)
-				KeyMessage.text="";
 			NearBed = false;
 		}
 	}
