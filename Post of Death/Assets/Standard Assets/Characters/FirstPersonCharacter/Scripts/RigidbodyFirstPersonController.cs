@@ -83,15 +83,35 @@ namespace UnityStandardAssets.Characters.FirstPerson
                         if (NoBarsToBeReduced == 5)
                             StaminaBar5.enabled = false;
 
-
+                        Debug.Log("NoBarsToBeReduced:" + NoBarsToBeReduced.ToString());
                     }
                     else
                     {
-                        StaminaBar1.enabled = false;
-                        StaminaBar2.enabled = false;
-                        StaminaBar3.enabled = false;
-                        StaminaBar4.enabled = false;
-                        StaminaBar5.enabled = false;
+
+                        int NoBarsToBeAdded = (int)Mathf.Floor(TimeElapsed);
+
+                        Debug.Log("NoBarsToBeAdded:" + NoBarsToBeAdded.ToString());
+
+                        if (NoBarsToBeAdded == 6)
+                            StaminaBar1.enabled = true;
+
+                        if (NoBarsToBeAdded == 7)
+                            StaminaBar2.enabled = true;
+
+                        if (NoBarsToBeAdded == 8)
+                            StaminaBar3.enabled = true;
+
+                        if (NoBarsToBeAdded == 9)
+                            StaminaBar4.enabled = true;
+
+                        if (NoBarsToBeAdded == 10)
+                        {
+                            StaminaBar5.enabled = true;
+
+                            TimeElapsed = 0;
+                        }
+
+
                     }
                    
                     
