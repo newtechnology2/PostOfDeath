@@ -32,8 +32,9 @@ public class BedFunctions : MonoBehaviour {
 			KeyMessage.text = KeyMessage.text + Keys.SecondaryActionKey.Key.ToString ();
 			KeyMessage.text = KeyMessage.text + " to save game";
 		} else {
+			if (NearBed)
+				KeyMessage.text="";
 			NearBed = false;
-			KeyMessage.text="";
 		}
 	}
 }
