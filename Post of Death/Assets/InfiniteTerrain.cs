@@ -3,12 +3,12 @@ using System.Collections;
 
 public class InfiniteTerrain : MonoBehaviour {
 
-	public float x_min;
-	public float x_max;
-	public float z_min;
-	public float z_max;
-	public float x_cam_width;
-	public float z_cam_width;
+	public float x_min = 0;
+	public float x_max = 500;
+	public float z_min = 0;
+	public float z_max = 500;
+	public float x_cam_width = 1;
+	public float z_cam_width = 1;
 
 	private void loop_terrain()
 	{
