@@ -52,6 +52,8 @@ public class Dig : MonoBehaviour {
 	void Start () {
 		NearByDitchID = -1;
 		DitchesCount = 0;
+		PP = FindObjectOfType<PlayerProperties>();
+		PP.SetHealth (5.0f);
 	}
 	
 	// Update is called once per frame
@@ -60,82 +62,80 @@ public class Dig : MonoBehaviour {
 		PlayTheFillAnim = false;
 
 		if (ClearText && DateTime.Now.TimeOfDay.TotalSeconds - Seconds > 5.0) {
-			ClearText=false;
-			StaminaFail.text="";
+			ClearText = false;
+			StaminaFail.text = "";
 		}
 
-		PP = FindObjectOfType<PlayerProperties>();
-		InUnwantedArea=false;
+		InUnwantedArea = false;
 		if (UnwantedAraCount >= 1)
 		if ((CameraTransform.position - UnwantedAra1Transform.position).magnitude <= UnwantedAra1Radius) {
-			InUnwantedArea=true;
+			InUnwantedArea = true;
 		}
 		if (UnwantedAraCount >= 2)
-		if ((CameraTransform.position-UnwantedAra2Transform.position).magnitude<=UnwantedAra2Radius){
-			InUnwantedArea=true;
+		if ((CameraTransform.position - UnwantedAra2Transform.position).magnitude <= UnwantedAra2Radius) {
+			InUnwantedArea = true;
 		}
 		if (UnwantedAraCount >= 3)
-		if ((CameraTransform.position-UnwantedAra3Transform.position).magnitude<=UnwantedAra3Radius){
-			InUnwantedArea=true;
+		if ((CameraTransform.position - UnwantedAra3Transform.position).magnitude <= UnwantedAra3Radius) {
+			InUnwantedArea = true;
 		}
 		if (UnwantedAraCount >= 4)
-		if ((CameraTransform.position-UnwantedAra4Transform.position).magnitude<=UnwantedAra4Radius){
-			InUnwantedArea=true;
+		if ((CameraTransform.position - UnwantedAra4Transform.position).magnitude <= UnwantedAra4Radius) {
+			InUnwantedArea = true;
 		}
 		if (UnwantedAraCount >= 5)
-		if ((CameraTransform.position-UnwantedAra5Transform.position).magnitude<=UnwantedAra5Radius){
-			InUnwantedArea=true;
+		if ((CameraTransform.position - UnwantedAra5Transform.position).magnitude <= UnwantedAra5Radius) {
+			InUnwantedArea = true;
 		}
 		if (UnwantedAraCount >= 6)
-		if ((CameraTransform.position-UnwantedAra6Transform.position).magnitude<=UnwantedAra6Radius){
-			InUnwantedArea=true;
+		if ((CameraTransform.position - UnwantedAra6Transform.position).magnitude <= UnwantedAra6Radius) {
+			InUnwantedArea = true;
 		}
 		if (UnwantedAraCount >= 7)
-		if ((CameraTransform.position-UnwantedAra7Transform.position).magnitude<=UnwantedAra7Radius){
-			InUnwantedArea=true;
+		if ((CameraTransform.position - UnwantedAra7Transform.position).magnitude <= UnwantedAra7Radius) {
+			InUnwantedArea = true;
 		}
 		if (UnwantedAraCount >= 8)
-		if ((CameraTransform.position-UnwantedAra8Transform.position).magnitude<=UnwantedAra8Radius){
-			InUnwantedArea=true;
+		if ((CameraTransform.position - UnwantedAra8Transform.position).magnitude <= UnwantedAra8Radius) {
+			InUnwantedArea = true;
 		}
 		if (UnwantedAraCount >= 9)
-		if ((CameraTransform.position-UnwantedAra9Transform.position).magnitude<=UnwantedAra9Radius){
-			InUnwantedArea=true;
+		if ((CameraTransform.position - UnwantedAra9Transform.position).magnitude <= UnwantedAra9Radius) {
+			InUnwantedArea = true;
 		}
 		if (UnwantedAraCount >= 10)
-		if ((CameraTransform.position-UnwantedAra10Transform.position).magnitude<=UnwantedAra10Radius){
-			InUnwantedArea=true;
+		if ((CameraTransform.position - UnwantedAra10Transform.position).magnitude <= UnwantedAra10Radius) {
+			InUnwantedArea = true;
 		}
-		Vector3 TerrainPosition =  DiggingTerrain.transform.position;
+		Vector3 TerrainPosition = DiggingTerrain.transform.position;
 		float X = ((CameraTransform.position.x - TerrainPosition.x) / DiggingTerrain.terrainData.size.x) * DiggingTerrain.terrainData.alphamapWidth;
 		float Z = ((CameraTransform.position.z - TerrainPosition.z) / DiggingTerrain.terrainData.size.z) * DiggingTerrain.terrainData.alphamapHeight;
 		NearByDitchID = -1;
-		for (int i=0;i<DitchesCount;i++)
-			if(Mathf.Abs((int)Ditches[i].x-X)<4&&Mathf.Abs((int)Ditches[i].z-Z)<4)
-		{
-			NearByDitchID=i;
-			break;
-		}
-		if (Guy.OnShovel&&NearByDitchID != -1) {
-			if (!InTheDitch)
-			{
+		for (int i=0; i<DitchesCount; i++)
+			if (Mathf.Abs ((int)Ditches [i].x - X) < 4 && Mathf.Abs ((int)Ditches [i].z - Z) < 4) {
+				NearByDitchID = i;
+				break;
+			}
+		if (NearByDitchID != -1) {
+			if (!InTheDitch) {
 				Keys.KeyText = Keys.KeyText + '\n' + "Press ";
 				Keys.KeyText = Keys.KeyText + Keys.PrimaryActionKey.Key.ToString ();
 				Keys.KeyText = Keys.KeyText + " to lay down in the ditch";
-				GetOutTheDitch=false;
-				LayDownInTheDitch=Keys.PrimaryActionKey.pressed;
+				GetOutTheDitch = false;
+				LayDownInTheDitch = Keys.PrimaryActionKey.pressed;
 				if (LayDownInTheDitch)
-					InTheDitch=true;
-			}
-			else{
+					InTheDitch = true;
+			} else {
 				Keys.KeyText = Keys.KeyText + '\n' + "Press ";
 				Keys.KeyText = Keys.KeyText + Keys.PrimaryActionKey.Key.ToString ();
 				Keys.KeyText = Keys.KeyText + " to get out of the ditch";
-				LayDownInTheDitch=false;
-				GetOutTheDitch=Keys.PrimaryActionKey.pressed;
+				LayDownInTheDitch = false;
+				GetOutTheDitch = Keys.PrimaryActionKey.pressed;
 				if (GetOutTheDitch)
-					InTheDitch=false;
+					InTheDitch = false;
 			}
+		}
+		if (Guy.OnShovel&&NearByDitchID != -1) {
 			if(!InTheDitch)
 			{
 				Keys.KeyText = Keys.KeyText + '\n' + "Press ";
@@ -144,7 +144,7 @@ public class Dig : MonoBehaviour {
 				
 				if (Keys.SecondaryActionKey.pressed)
 				{
-					if (PP.GetStamina()>1.0f)
+					if (PP.GetStamina()+10.0f>1.0f)
 					{
 						float[,] heights;
 						heights=new float[6,6];
@@ -189,7 +189,7 @@ public class Dig : MonoBehaviour {
 			TheDig.position=CameraTransform.position;
 			if(Keys.PrimaryActionKey.pressed)
 			{
-				if (PP.GetStamina()>2.5f)
+				if (PP.GetStamina()+10.0f>2.5f)
 				{
 					Vector3[] tempDitches=new Vector3[DitchesCount];
 					
