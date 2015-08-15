@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 using UnityEngine.UI;
+using UnityStandardAssets.Characters.FirstPerson;
 
 public class PlayerProperties : MonoBehaviour 
 {
@@ -16,21 +17,63 @@ public class PlayerProperties : MonoBehaviour
     public Button HealthBar4;
     public Button HealthBar5;
 
+    
 
     private float m_Health;
     private float m_Stamina;
-
 
     void Start()
     {
         m_Health = PlayerPrefs.GetFloat("Health", 5.0f);
         m_Stamina = PlayerPrefs.GetFloat("Stamina", 5.0f);
+
     }
+
 
     //returns stamina in [0, 5] range
     public float GetStamina()
     {
         return m_Stamina;
+    }
+
+    public int GetStaminaFromBar()
+    {
+        if (StaminaBar1.enabled)
+            return 1;
+
+        if (StaminaBar2.enabled)
+            return 2;
+
+        if (StaminaBar3.enabled)
+            return 3;
+
+        if (StaminaBar4.enabled)
+            return 4;
+
+        if (StaminaBar5.enabled)
+            return 5;
+
+        return 0; 
+    }
+
+    public int GetHealthFromBar()
+    {
+        if (HealthBar1.enabled)
+            return 1;
+
+        if (HealthBar2.enabled)
+            return 2;
+
+        if (HealthBar3.enabled)
+            return 3;
+
+        if (HealthBar4.enabled)
+            return 4;
+
+        if (HealthBar5.enabled)
+            return 5;
+
+        return 0;
     }
 
     //Set Stamina in [0, 5] range

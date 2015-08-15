@@ -1,4 +1,5 @@
 using System;
+using System.Collections;
 using UnityEngine;
 using UnityStandardAssets.CrossPlatformInput;
 using UnityEngine.UI;
@@ -9,8 +10,8 @@ namespace UnityStandardAssets.Characters.FirstPerson
     [RequireComponent(typeof (CapsuleCollider))]
     public class RigidbodyFirstPersonController : MonoBehaviour
     {
-
-
+ 
+       
         [Serializable]
         public class MovementSettings
         {
@@ -29,6 +30,8 @@ namespace UnityStandardAssets.Characters.FirstPerson
             public Button StaminaBar3;
             public Button StaminaBar4;
             public Button StaminaBar5;
+
+            
 
             public AnimationCurve SlopeCurveModifier = new AnimationCurve(new Keyframe(-90.0f, 1.0f), new Keyframe(0.0f, 1.0f), new Keyframe(90.0f, 0.0f));
 
@@ -160,7 +163,7 @@ namespace UnityStandardAssets.Characters.FirstPerson
         public MouseLook mouseLook = new MouseLook();
         public AdvancedSettings advancedSettings = new AdvancedSettings();
 
-
+       
         private Rigidbody m_RigidBody;
         private CapsuleCollider m_Capsule;
         private float m_YRotation;
@@ -194,7 +197,8 @@ namespace UnityStandardAssets.Characters.FirstPerson
 #endif
             }
         }
-
+        
+        
 
         private void Start()
         {
