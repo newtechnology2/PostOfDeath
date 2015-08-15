@@ -26,7 +26,7 @@ public class MenuBehaviour : MonoBehaviour
 
     public void StartNewGame()
     {
-
+        Application.LoadLevel("PostOfDeath");
     }
 
     public void LoadGame()

@@ -17,7 +17,7 @@ public class CharacterAnims : MonoBehaviour
 
 	void Update () 
     {
-        if (Input.GetKeyUp(KeyCode.W) && Input.GetKeyUp(KeyCode.S) && Input.GetKeyUp(KeyCode.A) && Input.GetKeyUp(KeyCode.D))
+        if (!Input.GetKeyDown(KeyCode.W) && !Input.GetKeyDown(KeyCode.S) && !Input.GetKeyDown(KeyCode.A) && !Input.GetKeyDown(KeyCode.D))
             AnimatorComponent.SetFloat("Speed", 0.0f);
 
        if (Input.GetKeyUp(KeyCode.Space))
@@ -27,6 +27,8 @@ public class CharacterAnims : MonoBehaviour
        }
        else
            AnimatorComponent.SetBool("Grounded", PlayerController.Grounded);
+
+
 
        if (Input.GetKey(KeyCode.W))
        {
@@ -42,6 +44,11 @@ public class CharacterAnims : MonoBehaviour
            else
                AnimatorComponent.SetFloat("Speed", 0.5f);
         
+       }
+
+       if (Input.GetKey(KeyCode.S))
+       {
+           AnimatorComponent.SetFloat("Speed", -0.5f);
        }
 
         if (Input.GetKey(KeyCode.Space))
