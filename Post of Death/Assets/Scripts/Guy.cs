@@ -22,11 +22,16 @@ public class Guy : MonoBehaviour
 	}
 	
 	// Update is called once per frame
+<<<<<<< HEAD
 	void Update () 
     {
 
 		if (OnShovel&&HasShovel) 
         {
+=======
+	void Update () {
+		if (OnShovel&&HasShovel) {
+>>>>>>> origin/master
 			Keys.KeyText = Keys.KeyText + '\n' + "Press ";
 			Keys.KeyText = Keys.KeyText + Keys.ChangeToolActionKey.Key.ToString ();
 			Keys.KeyText = Keys.KeyText + " to put shovel on back";
