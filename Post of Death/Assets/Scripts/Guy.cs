@@ -1,8 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class Guy : MonoBehaviour 
-{
+public class Guy : MonoBehaviour {
 
 	public float Health;
 	public float Stamina;
@@ -22,16 +21,8 @@ public class Guy : MonoBehaviour
 	}
 	
 	// Update is called once per frame
-<<<<<<< HEAD
-	void Update () 
-    {
-
-		if (OnShovel&&HasShovel) 
-        {
-=======
 	void Update () {
 		if (OnShovel&&HasShovel) {
->>>>>>> origin/master
 			Keys.KeyText = Keys.KeyText + '\n' + "Press ";
 			Keys.KeyText = Keys.KeyText + Keys.ChangeToolActionKey.Key.ToString ();
 			Keys.KeyText = Keys.KeyText + " to put shovel on back";
@@ -55,8 +46,7 @@ public class Guy : MonoBehaviour
 				PuttingShovelOnBack=false;
 			}
 		}
-		if (!OnShovel&&HasShovel&&!OnEnteringRiver.PlayerIsInRiver) 
-        {
+		if (!OnShovel&&HasShovel&&!OnEnteringRiver.PlayerIsInRiver) {
 			Keys.KeyText = Keys.KeyText + '\n' + "Press ";
 			Keys.KeyText = Keys.KeyText + Keys.ChangeToolActionKey.Key.ToString ();
 			Keys.KeyText = Keys.KeyText + " to take shovel in hands";
