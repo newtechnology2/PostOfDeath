@@ -2,6 +2,5 @@ Post of Death/Library
 Post of Death/Builds
 Post of Death/Temp
 Post of Death/Ignore
-*.csproj
-*.csproj
-Post of Death/Assembly-CSharp-Editor-vs.csproj
+Post of Death/obj
+Post of Death/*.csproj
