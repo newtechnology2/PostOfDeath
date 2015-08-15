@@ -11,6 +11,11 @@ public class ShovelAnimation : MonoBehaviour
 
     bool DigAnimWasPlayed = false;
     bool FillAnimWasPlayed = false;
+
+    bool PutShovelbackAnimWasPlayed = false;
+    bool PutShovelbackAnimReverseWasPlayed = false;
+
+    bool foo = false;
 	void Start () 
     {
         Shovel02.SetActive(false);
@@ -20,8 +25,10 @@ public class ShovelAnimation : MonoBehaviour
 
         DigAnimWasPlayed = false;
         FillAnimWasPlayed = false;
+        PutShovelbackAnimWasPlayed = false;
+        PutShovelbackAnimReverseWasPlayed = false;
 
-        PlayerPrefs.SetFloat("Stamina", 5.0f);
+        foo = false;
 	}
 	
 	
@@ -37,6 +44,37 @@ public class ShovelAnimation : MonoBehaviour
             AnimComponent.Play("DigAnim");
 
             DigAnimWasPlayed = true;
+        }
+
+        if (Guy.PuttingShovelOnBack)
+        {
+            Shovel02.SetActive(true);
+            Shovel01.SetActive(false);
+
+            AnimComponent["PutShovelBack"].speed = +1;
+
+            AnimComponent.Play("PutShovelBack");
+
+            PutShovelbackAnimWasPlayed = true;
+
+            Guy.PuttingShovelOnBack = false;
+        }
+
+        if (Guy.TakingShovelInHands && !foo && !PutShovelbackAnimWasPlayed)
+        {
+            Debug.Log("OK");
+
+            Shovel02.SetActive(true);
+            Shovel01.SetActive(false);
+
+            AnimComponent["PutShovelBack"].speed = -1;
+
+            AnimComponent.Play("PutShovelBack");
+
+            foo = true;
+
+            PutShovelbackAnimReverseWasPlayed = true;
+
         }
 
         if (Dig.PlayTheFillAnim)
@@ -65,6 +103,29 @@ public class ShovelAnimation : MonoBehaviour
             Shovel01.SetActive(true);
 
             FillAnimWasPlayed = false;
+        }
+
+        if (PutShovelbackAnimWasPlayed && !AnimComponent.IsPlaying("PutShovelBack"))
+        {
+            Shovel02.SetActive(false);
+            Shovel01.SetActive(true);
+
+            PutShovelbackAnimWasPlayed = false;
+
+            Guy.PuttingShovelOnBackEnded = true;
+        }
+
+        if (PutShovelbackAnimReverseWasPlayed && !AnimComponent.IsPlaying("PutShovelBack"))
+        {
+
+            Shovel02.SetActive(false);
+            Shovel01.SetActive(true);
+
+            foo = false;
+
+            PutShovelbackAnimReverseWasPlayed = false;
+
+            Guy.TakingShovelInHandsEnded = true;
         }
 	}
 }
