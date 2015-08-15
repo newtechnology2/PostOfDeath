@@ -9,9 +9,12 @@ public class OnGhostAttack : MonoBehaviour
     Ghost GhostScript;
     Animation AnimComponent;
     RigidbodyFirstPersonController PlayerController;
+    Transform Child_Max;
+
 
     bool PlayedFallAnim = false;
-    bool StoodUp = false;
+    bool StandingUp = false;
+    bool foo = false;
 
     float TimeElapsed = 0;
 
@@ -20,10 +23,11 @@ public class OnGhostAttack : MonoBehaviour
         GhostScript = FindObjectOfType<Ghost>();
         AnimComponent = GetComponent<Animation>();
         PlayerController = GetComponent<RigidbodyFirstPersonController>();
-
+        Child_Max = transform.FindChild("MAX");
 
         PlayedFallAnim = false;
-        StoodUp = false;
+        StandingUp = false;
+        foo = false;
 
         TimeElapsed = 0;
 	}
@@ -33,6 +37,7 @@ public class OnGhostAttack : MonoBehaviour
     {
         if (GhostScript.GhostAttacked && !AnimComponent.IsPlaying("ThrowAnim") && !PlayedFallAnim)
         {
+            Child_Max.gameObject.SetActive(false);
 
             PlayerController.enabled = false;
 
@@ -40,7 +45,7 @@ public class OnGhostAttack : MonoBehaviour
 
             PlayedFallAnim = true;
 
-            StoodUp = false;
+            StandingUp = false;
         }
 
         if (PlayedFallAnim && !AnimComponent.IsPlaying("ThrowAnim") && !AnimComponent.IsPlaying("StandUpAnim"))
@@ -53,13 +58,29 @@ public class OnGhostAttack : MonoBehaviour
 
                 PlayedFallAnim = false;
 
-                StoodUp = true;
+                StandingUp = true;
 
                 TimeElapsed = 0;
             }
         }
 
-        if (StoodUp)
+        if (StandingUp)
+        {
             PlayerController.enabled = true;
+
+            foo = true;
+        }
+
+        if (foo)
+        {
+            if (!AnimComponent.IsPlaying("StandUpAnim"))
+            {
+                if (Input.GetKey(KeyCode.W) || Input.GetKey(KeyCode.S) || Input.GetKey(KeyCode.A) || Input.GetKey(KeyCode.D))
+                {
+                    Child_Max.gameObject.SetActive(true);
+                     foo = false;
+                }
+            }
+        }
 	}
 }

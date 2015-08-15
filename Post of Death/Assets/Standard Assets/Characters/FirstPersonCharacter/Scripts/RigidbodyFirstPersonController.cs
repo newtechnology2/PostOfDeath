@@ -39,6 +39,30 @@ namespace UnityStandardAssets.Characters.FirstPerson
             private bool m_Running;
 #endif
 
+            //Returns stamina of player in [1, 5] range
+            public int GetStaminaBarValue()
+            {
+                int value = 0;
+
+                if (StaminaBar1.enabled)
+                    value += 1;
+
+                if (StaminaBar2.enabled)
+                    value += 1;
+
+                if (StaminaBar3.enabled)
+                    value += 1;
+
+                if (StaminaBar4.enabled)
+                    value += 1;
+
+                if (StaminaBar5.enabled)
+                    value += 1;
+
+
+                return value;
+            }
+
             public void UpdateDesiredTargetSpeed(Vector2 input)
             {
 	            if (input == Vector2.zero) return;
@@ -196,23 +220,23 @@ namespace UnityStandardAssets.Characters.FirstPerson
 
                 int NoBarsToBeAdded = (int)Mathf.Floor(movementSettings.TimeElapsed);
 
-                if (NoBarsToBeAdded == 2)
+                if (NoBarsToBeAdded == 1)
                     movementSettings.StaminaBar1.enabled = true;
 
-                if (NoBarsToBeAdded == 4)
+                if (NoBarsToBeAdded == 2)
                     movementSettings.StaminaBar2.enabled = true;
 
-                if (NoBarsToBeAdded == 6)
+                if (NoBarsToBeAdded == 3)
                     movementSettings.StaminaBar3.enabled = true;
 
-                if (NoBarsToBeAdded == 8)
+                if (NoBarsToBeAdded == 4)
                     movementSettings.StaminaBar4.enabled = true;
 
-                if (NoBarsToBeAdded == 10)
+                if (NoBarsToBeAdded == 5)
                     movementSettings.StaminaBar5.enabled = true;
 
 
-                if (NoBarsToBeAdded >= 10)
+                if (NoBarsToBeAdded >= 5)
                 {
                     movementSettings.RegenerateStamina = false;
                     movementSettings.TimeElapsed = 0;
