@@ -2,9 +2,13 @@
 using System.Collections;
 
 public class Dig : MonoBehaviour {
+	public static bool LayDownInTheDitch;
+	public static bool InTheDitch;
+	public static bool GetOutTheDitch;
 
 	public Transform CameraTransform;
 	public Transform TheDig;
+	public int NearByDitchID;
 
 	public int UnwantedAraCount;
 	public Transform UnwantedAra1Transform;
@@ -31,9 +35,14 @@ public class Dig : MonoBehaviour {
 	public Terrain DiggingTerrain;
 
 	private bool InUnwantedArea;
+	private int DitchesCount;
+
+	public static Vector3[] Ditches;
 
 	// Use this for initialization
 	void Start () {
+		NearByDitchID = -1;
+		DitchesCount = 0;
 	}
 	
 	// Update is called once per frame
@@ -79,7 +88,56 @@ public class Dig : MonoBehaviour {
 		if ((CameraTransform.position-UnwantedAra10Transform.position).magnitude<=UnwantedAra10Radius){
 			InUnwantedArea=true;
 		}
-		if (Guy.OnShovel&&!InUnwantedArea)
+		Vector3 TerrainPosition =  DiggingTerrain.transform.position;
+		float X = ((CameraTransform.position.x - TerrainPosition.x) / DiggingTerrain.terrainData.size.x) * DiggingTerrain.terrainData.alphamapWidth;
+		float Z = ((CameraTransform.position.z - TerrainPosition.z) / DiggingTerrain.terrainData.size.z) * DiggingTerrain.terrainData.alphamapHeight;
+
+		for (int i=0;i<DitchesCount;i++)
+			if(Mathf.Abs((int)Ditches[i].x-X)<4&&Mathf.Abs((int)Ditches[i].z-Z)<4)
+		{
+			NearByDitchID=i;
+			break;
+		}
+		if (InUnwantedArea && NearByDitchID != -1) {
+			if (!InTheDitch)
+			{
+				Keys.KeyText = Keys.KeyText + '\n' + "Press ";
+				Keys.KeyText = Keys.KeyText + Keys.PrimaryActionKey.Key.ToString ();
+				Keys.KeyText = Keys.KeyText + " to lay down in the ditch";
+				LayDownInTheDitch=Keys.PrimaryActionKey.pressed;
+				InTheDitch=true;
+			}
+			else{
+				Keys.KeyText = Keys.KeyText + '\n' + "Press ";
+				Keys.KeyText = Keys.KeyText + Keys.PrimaryActionKey.Key.ToString ();
+				Keys.KeyText = Keys.KeyText + " to get out of the ditch";
+				LayDownInTheDitch=Keys.PrimaryActionKey.pressed;
+				InTheDitch=false;
+				LayDownInTheDitch=false;
+				GetOutTheDitch=Keys.PrimaryActionKey.pressed;
+			}
+			Keys.KeyText = Keys.KeyText + '\n' + "Press ";
+			Keys.KeyText = Keys.KeyText + Keys.SecondaryActionKey.Key.ToString ();
+			Keys.KeyText = Keys.KeyText + " to fill the ditch";
+			
+			if (Keys.SecondaryActionKey.pressed)
+			{
+				float[,] heights;
+				heights=new float[6,6];
+				
+				heights=DiggingTerrain.terrainData.GetHeights((int)Ditches[NearByDitchID].x-3,(int)Ditches[NearByDitchID].z-3,6,6);
+				
+				for (int i=0;i<6;i++)
+					for(int j=0;j<3;j++)
+						heights[i,j]-=(-(((float)j-1.5f)*((float)j-1.5f)/2.25f+((float)i-2.5f)*((float)i-2.5f)/6.25f)+2)/DiggingTerrain.terrainData.size.y;
+				for (int i=1;i<5;i++)
+					for(int j=4;j<6;j++)
+						heights[i,j]+=2.0f/DiggingTerrain.terrainData.size.y;
+				DiggingTerrain.terrainData.SetHeightsDelayLOD((int)Ditches[NearByDitchID].x-3,(int)Ditches[NearByDitchID].z-3,heights);
+				DiggingTerrain.ApplyDelayedHeightmapModification();
+			}
+		}
+		if (Guy.OnShovel&&!InUnwantedArea&&NearByDitchID==-1)
 		{
 			Keys.KeyText = Keys.KeyText + '\n' + "Press ";
 			Keys.KeyText = Keys.KeyText + Keys.PrimaryActionKey.Key.ToString ();
@@ -87,9 +145,18 @@ public class Dig : MonoBehaviour {
 			TheDig.position=CameraTransform.position;
 			if(Keys.PrimaryActionKey.pressed)
 			{
-				Vector3 TerrainPosition =  DiggingTerrain.transform.position;
-				float X = ((CameraTransform.position.x - TerrainPosition.x) / DiggingTerrain.terrainData.size.x) * DiggingTerrain.terrainData.alphamapWidth;
-				float Z = ((CameraTransform.position.z - TerrainPosition.z) / DiggingTerrain.terrainData.size.z) * DiggingTerrain.terrainData.alphamapHeight;
+				Vector3 tempDitches=new Vector3[DitchesCount];
+
+				for (int i=0;i<DitchesCount;i++)
+					tempDitches[i]=Ditches[i];
+
+				DitchesCount++;
+				Ditches=new Vector3[DitchesCount];
+
+				for (int i=0;i<DitchesCount-1;i++)
+					Ditches[i]=tempDitches[i];
+				Ditches[DitchesCount-1].x=X;
+				Ditches[DitchesCount-1].z=Z;
 				float[,] heights;
 				heights=new float[6,6];
 
@@ -100,7 +167,7 @@ public class Dig : MonoBehaviour {
 						heights[i,j]+=(-(((float)j-1.5f)*((float)j-1.5f)/2.25f+((float)i-2.5f)*((float)i-2.5f)/6.25f)+2)/DiggingTerrain.terrainData.size.y;
 				for (int i=1;i<5;i++)
 					for(int j=4;j<6;j++)
-						heights[i,j]-=2/DiggingTerrain.terrainData.size.y;
+						heights[i,j]-=2.0f/DiggingTerrain.terrainData.size.y;
 				DiggingTerrain.terrainData.SetHeightsDelayLOD((int)X-3,(int)Z-3,heights);
 				DiggingTerrain.ApplyDelayedHeightmapModification();
 				float[,,] alphamaps;
