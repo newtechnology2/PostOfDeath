@@ -112,7 +112,7 @@ public class Dig : MonoBehaviour {
 						alphamaps[i,j,k]=0f;
 					alphamaps[i,j,7]=1f;
 				}
-				DiggingTerrain.terrainData.SetAlphamaps((int)X-3,(int)Z-5,alphamaps);
+				DiggingTerrain.terrainData.SetAlphamaps((int)X-4,(int)Z-4,alphamaps);
 			}
 		}
 	}
