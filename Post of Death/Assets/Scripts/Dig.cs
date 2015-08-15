@@ -113,6 +113,19 @@ public class Dig : MonoBehaviour {
 					alphamaps[i,j,7]=1f;
 				}
 				DiggingTerrain.terrainData.SetAlphamaps((int)X-4,(int)Z-4,alphamaps);
+				int[,] DetailDens;
+				DetailDens = DiggingTerrain.terrainData.GetDetailLayer((int)X-3,(int)Z-3,6,6,0);
+
+				for (int i=0;i<6;i++)
+					for(int j=0;j<6;j++)
+						DetailDens[i,j]=0;
+				DiggingTerrain.terrainData.SetDetailLayer((int)X-3,(int)Z-3, 0, DetailDens); 
+				DetailDens = DiggingTerrain.terrainData.GetDetailLayer((int)X-3,(int)Z-3,6,6,1);
+				
+				for (int i=0;i<6;i++)
+					for(int j=0;j<6;j++)
+						DetailDens[i,j]=0;
+				DiggingTerrain.terrainData.SetDetailLayer((int)X-3,(int)Z-3, 1, DetailDens); 
 			}
 		}
 	}
