@@ -145,10 +145,17 @@ public class Dig : MonoBehaviour {
 			TheDig.position=CameraTransform.position;
 			if(Keys.PrimaryActionKey.pressed)
 			{
-				Vector3 tempDitches=new Vector3[DitchesCount];
+				//Vector3 tempDitches = new Vector3[DitchesCount];
 
-				for (int i=0;i<DitchesCount;i++)
+                Vector3[] tempDitches = new Vector3[DitchesCount];
+
+                
+
+				for (int i=0;i<DitchesCount;i++) 
+                {
 					tempDitches[i]=Ditches[i];
+
+                }
 
 				DitchesCount++;
 				Ditches=new Vector3[DitchesCount];
