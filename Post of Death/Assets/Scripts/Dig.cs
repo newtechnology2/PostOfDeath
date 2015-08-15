@@ -59,7 +59,7 @@ public class Dig : MonoBehaviour {
 		PlayTheDigAnim = false;
 		PlayTheFillAnim = false;
 
-		if (ClearText && DateTime.Now.TimeOfDay.Seconds - Seconds > 5.0) {
+		if (ClearText && DateTime.Now.TimeOfDay.TotalSeconds - Seconds > 5.0) {
 			ClearText=false;
 			StaminaFail.text="";
 		}
@@ -244,7 +244,7 @@ public class Dig : MonoBehaviour {
 				}
 				else{
 					ClearText=true;
-					Seconds=DateTime.Now.TimeOfDay.Seconds;
+					Seconds=DateTime.Now.TimeOfDay.TotalSeconds;
 					StaminaFail.text="You're too tired to dig";
 				}
 			}
