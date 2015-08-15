@@ -23,7 +23,7 @@ public class OnGhostAttack : MonoBehaviour
         GhostScript = FindObjectOfType<Ghost>();
         AnimComponent = GetComponent<Animation>();
         PlayerController = GetComponent<RigidbodyFirstPersonController>();
-        Child_Max = transform.FindChild("MAX");
+        Child_Max = transform.FindChild("Body").FindChild("MAX");
 
         PlayedFallAnim = false;
         StandingUp = false;

@@ -10,7 +10,7 @@ public class OnEnteringRiver : MonoBehaviour
 
     void Start()
     {
-        PlayerBody = GameObject.Find("RigidBodyFPSController").transform.FindChild("MAX").gameObject;
+        PlayerBody = GameObject.Find("RigidBodyFPSController").transform.FindChild("Body").FindChild("MAX").gameObject;
 
         PlayerIsInRiver = false;
     }
