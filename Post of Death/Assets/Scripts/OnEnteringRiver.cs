@@ -6,7 +6,7 @@ public class OnEnteringRiver : MonoBehaviour
 
     GameObject PlayerBody;
 
-    public bool PlayerIsInRiver;
+    public static bool PlayerIsInRiver;
 
     void Start()
     {
