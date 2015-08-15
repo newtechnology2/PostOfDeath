@@ -90,15 +90,29 @@ public class Dig : MonoBehaviour {
 				Vector3 TerrainPosition =  DiggingTerrain.transform.position;
 				float X = ((CameraTransform.position.x - TerrainPosition.x) / DiggingTerrain.terrainData.size.x) * DiggingTerrain.terrainData.alphamapWidth;
 				float Z = ((CameraTransform.position.z - TerrainPosition.z) / DiggingTerrain.terrainData.size.z) * DiggingTerrain.terrainData.alphamapHeight;
-
-				float PointHeight=0.5f;//DiggingTerrain.terrainData.GetInterpolatedHeight(X,Z)/*/DiggingTerrain.terrainData.size.y*/;
 				float[,] heights;
-				heights=new float[10,10];
-				for (int i=0;i<10;i++)
-					for(int j=0;j<10;j++)
-						heights[i,j]=PointHeight;
-				DiggingTerrain.terrainData.SetHeightsDelayLOD((int)X-5,(int)Z-5,heights);
+				heights=new float[6,6];
+
+				heights=DiggingTerrain.terrainData.GetHeights((int)X-3,(int)Z-3,6,6);
+
+				for (int i=0;i<6;i++)
+					for(int j=0;j<3;j++)
+						heights[i,j]+=(-(((float)j-1.5f)*((float)j-1.5f)/2.25f+((float)i-2.5f)*((float)i-2.5f)/6.25f)+2)/DiggingTerrain.terrainData.size.y;
+				for (int i=1;i<5;i++)
+					for(int j=4;j<6;j++)
+						heights[i,j]-=2/DiggingTerrain.terrainData.size.y;
+				DiggingTerrain.terrainData.SetHeightsDelayLOD((int)X-3,(int)Z-3,heights);
 				DiggingTerrain.ApplyDelayedHeightmapModification();
+				float[,,] alphamaps;
+				alphamaps=new float[6,7,8];
+				for (int i=0;i<6;i++)
+					for(int j=0;j<7;j++)
+				{
+					for (int k=0;k<7;k++)
+						alphamaps[i,j,k]=0f;
+					alphamaps[i,j,7]=1f;
+				}
+				DiggingTerrain.terrainData.SetAlphamaps((int)X-3,(int)Z-5,alphamaps);
 			}
 		}
 	}
