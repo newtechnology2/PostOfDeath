@@ -4,6 +4,7 @@ using System.Collections;
 public class Dig : MonoBehaviour {
 
 	public Transform CameraTransform;
+	public Transform TheDig;
 
 	public int UnwantedAraCount;
 	public Transform UnwantedAra1Transform;
@@ -26,6 +27,8 @@ public class Dig : MonoBehaviour {
 	public float UnwantedAra8Radius;
 	public float UnwantedAra9Radius;
 	public float UnwantedAra10Radius;
+
+	public Terrain DiggingTerrain;
 
 	private bool InUnwantedArea;
 
@@ -81,6 +84,22 @@ public class Dig : MonoBehaviour {
 			Keys.KeyText = Keys.KeyText + '\n' + "Press ";
 			Keys.KeyText = Keys.KeyText + Keys.PrimaryActionKey.Key.ToString ();
 			Keys.KeyText = Keys.KeyText + " to dig";
+			TheDig.position=CameraTransform.position;
+			if(Keys.PrimaryActionKey.pressed)
+			{
+				Vector3 TerrainPosition =  DiggingTerrain.transform.position;
+				float X = ((CameraTransform.position.x - TerrainPosition.x) / DiggingTerrain.terrainData.size.x) * DiggingTerrain.terrainData.alphamapWidth;
+				float Z = ((CameraTransform.position.z - TerrainPosition.z) / DiggingTerrain.terrainData.size.z) * DiggingTerrain.terrainData.alphamapHeight;
+
+				float PointHeight=0.5f;//DiggingTerrain.terrainData.GetInterpolatedHeight(X,Z)/*/DiggingTerrain.terrainData.size.y*/;
+				float[,] heights;
+				heights=new float[10,10];
+				for (int i=0;i<10;i++)
+					for(int j=0;j<10;j++)
+						heights[i,j]=PointHeight;
+				DiggingTerrain.terrainData.SetHeightsDelayLOD((int)X-5,(int)Z-5,heights);
+				DiggingTerrain.ApplyDelayedHeightmapModification();
+			}
 		}
 	}
 }

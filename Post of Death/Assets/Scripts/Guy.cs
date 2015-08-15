@@ -16,6 +16,8 @@ public class Guy : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
+		OnShovel=true;
+		HasShovel=true;
 	}
 	
 	// Update is called once per frame
@@ -23,7 +25,7 @@ public class Guy : MonoBehaviour {
 		if (OnShovel&&HasShovel) {
 			Keys.KeyText = Keys.KeyText + '\n' + "Press ";
 			Keys.KeyText = Keys.KeyText + Keys.ChangeToolActionKey.Key.ToString ();
-			Keys.KeyText = Keys.KeyText + " to put shovel on back shovel";
+			Keys.KeyText = Keys.KeyText + " to put shovel on back";
 			Keys.KeyText = Keys.KeyText + '\n' + "Press ";
 			Keys.KeyText = Keys.KeyText + Keys.DropActionKey.Key.ToString ();
 			Keys.KeyText = Keys.KeyText + " to drop shovel";
