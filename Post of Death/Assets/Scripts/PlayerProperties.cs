@@ -27,6 +27,8 @@ public class PlayerProperties : MonoBehaviour
         m_Health = PlayerPrefs.GetFloat("Health", 5.0f);
         m_Stamina = PlayerPrefs.GetFloat("Stamina", 5.0f);
 
+        Debug.Log("Health: " + m_Health);
+        Debug.Log("Stamina: " + m_Stamina);
     }
 
 
