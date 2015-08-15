@@ -15,6 +15,7 @@ public class Ghost : MonoBehaviour {
 	private Vector3[] Ghosts;
 	private double AttackStart;
 	private Vector3 GhostStartAttackPos;
+	private PlayerProperties PP;
 	
 	// Use this for initialization
 	void Start () {
@@ -27,6 +28,7 @@ public class Ghost : MonoBehaviour {
 			RandomMovement.z = (float)UnityEngine.Random.Range (-500, 500);
 			Ghosts [i]=RandomMovement;
 		}
+		PP = FindObjectOfType<PlayerProperties>();
 	}
 	
 	// Update is called once per frame
@@ -63,6 +65,7 @@ public class Ghost : MonoBehaviour {
 					RandomMovement.x = (float)UnityEngine.Random.Range (-500, 500);
 					RandomMovement.z = (float)UnityEngine.Random.Range (-500, 500);
 					Ghosts [i]=RandomMovement;
+					PP.SetHealth(Mathf.Clamp(PP.GetHealth()-2.5f,0,5f));
 				}
 				else
 					GhostAttacked=false;

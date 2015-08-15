@@ -1,10 +1,16 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System;
+using UnityEngine.UI;
 
 public class Dig : MonoBehaviour {
+	public Text StaminaFail;
+
 	public static bool LayDownInTheDitch;
 	public static bool InTheDitch;
 	public static bool GetOutTheDitch;
+	public static bool PlayTheDigAnim;
+	public static bool PlayTheFillAnim;
 
 	public Transform CameraTransform;
 	public Transform TheDig;
@@ -39,6 +45,9 @@ public class Dig : MonoBehaviour {
 
 	public static Vector3[] Ditches;
 
+	private PlayerProperties PP;
+	private bool ClearText;
+	private double Seconds;
 	// Use this for initialization
 	void Start () {
 		NearByDitchID = -1;
@@ -47,6 +56,15 @@ public class Dig : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
+		PlayTheDigAnim = false;
+		PlayTheFillAnim = false;
+
+		if (ClearText && DateTime.Now.TimeOfDay.Seconds - Seconds > 5.0) {
+			ClearText=false;
+			StaminaFail.text="";
+		}
+
+		PP = FindObjectOfType<PlayerProperties>();
 		InUnwantedArea=false;
 		if (UnwantedAraCount >= 1)
 		if ((CameraTransform.position - UnwantedAra1Transform.position).magnitude <= UnwantedAra1Radius) {
@@ -126,29 +144,40 @@ public class Dig : MonoBehaviour {
 				
 				if (Keys.SecondaryActionKey.pressed)
 				{
-					float[,] heights;
-					heights=new float[6,6];
-					
-					heights=DiggingTerrain.terrainData.GetHeights((int)Ditches[NearByDitchID].x-3,(int)Ditches[NearByDitchID].z-3,6,6);
-					
-					for (int i=0;i<6;i++)
-						for(int j=0;j<3;j++)
-							heights[i,j]-=(-(((float)j-1.5f)*((float)j-1.5f)/2.25f+((float)i-2.5f)*((float)i-2.5f)/6.25f)+2)/DiggingTerrain.terrainData.size.y;
-					for (int i=1;i<5;i++)
-						for(int j=4;j<6;j++)
-							heights[i,j]+=2.0f/DiggingTerrain.terrainData.size.y;
-					DiggingTerrain.terrainData.SetHeightsDelayLOD((int)Ditches[NearByDitchID].x-3,(int)Ditches[NearByDitchID].z-3,heights);
-					DiggingTerrain.ApplyDelayedHeightmapModification();
-					Vector3[] tempDitches=new Vector3[DitchesCount];
-					for (int i=0;i<DitchesCount;i++)
-						tempDitches[i]=Ditches[i];
-					DitchesCount--;
-					Ditches=new Vector3[DitchesCount];
-					for (int i=0;i<DitchesCount;i++)
-						if(i<NearByDitchID)
-							Ditches[i]=tempDitches[i];
-					else
-						Ditches[i]=tempDitches[i+1];
+					if (PP.GetStamina()>1.0f)
+					{
+						float[,] heights;
+						heights=new float[6,6];
+						
+						heights=DiggingTerrain.terrainData.GetHeights((int)Ditches[NearByDitchID].x-3,(int)Ditches[NearByDitchID].z-3,6,6);
+						
+						for (int i=0;i<6;i++)
+							for(int j=0;j<3;j++)
+								heights[i,j]-=(-(((float)j-1.5f)*((float)j-1.5f)/2.25f+((float)i-2.5f)*((float)i-2.5f)/6.25f)+2)/DiggingTerrain.terrainData.size.y;
+						for (int i=1;i<5;i++)
+							for(int j=4;j<6;j++)
+								heights[i,j]+=2.0f/DiggingTerrain.terrainData.size.y;
+						DiggingTerrain.terrainData.SetHeightsDelayLOD((int)Ditches[NearByDitchID].x-3,(int)Ditches[NearByDitchID].z-3,heights);
+						DiggingTerrain.ApplyDelayedHeightmapModification();
+						Vector3[] tempDitches=new Vector3[DitchesCount];
+						for (int i=0;i<DitchesCount;i++)
+							tempDitches[i]=Ditches[i];
+						DitchesCount--;
+						Ditches=new Vector3[DitchesCount];
+						for (int i=0;i<DitchesCount;i++)
+							if(i<NearByDitchID)
+								Ditches[i]=tempDitches[i];
+						else
+							Ditches[i]=tempDitches[i+1];
+						
+						PP.SetStamina(PP.GetStamina()-1.0f);
+						PlayTheFillAnim=true;
+					}
+					else{
+						ClearText=true;
+						Seconds=DateTime.Now.TimeOfDay.Seconds;
+						StaminaFail.text="You're too tired to fill the dig";
+					}
 				}
 			}
 		}
@@ -160,54 +189,64 @@ public class Dig : MonoBehaviour {
 			TheDig.position=CameraTransform.position;
 			if(Keys.PrimaryActionKey.pressed)
 			{
-				Vector3[] tempDitches=new Vector3[DitchesCount];
-
-				for (int i=0;i<DitchesCount;i++)
-					tempDitches[i]=Ditches[i];
-
-				DitchesCount++;
-				Ditches=new Vector3[DitchesCount];
-
-				for (int i=0;i<DitchesCount-1;i++)
-					Ditches[i]=tempDitches[i];
-				Ditches[DitchesCount-1].x=X;
-				Ditches[DitchesCount-1].z=Z;
-				float[,] heights;
-				heights=new float[6,6];
-
-				heights=DiggingTerrain.terrainData.GetHeights((int)X-3,(int)Z-3,6,6);
-
-				for (int i=0;i<6;i++)
-					for(int j=0;j<3;j++)
-						heights[i,j]+=(-(((float)j-1.5f)*((float)j-1.5f)/2.25f+((float)i-2.5f)*((float)i-2.5f)/6.25f)+2)/DiggingTerrain.terrainData.size.y;
-				for (int i=1;i<5;i++)
-					for(int j=4;j<6;j++)
-						heights[i,j]-=2.0f/DiggingTerrain.terrainData.size.y;
-				DiggingTerrain.terrainData.SetHeightsDelayLOD((int)X-3,(int)Z-3,heights);
-				DiggingTerrain.ApplyDelayedHeightmapModification();
-				float[,,] alphamaps;
-				alphamaps=new float[6,7,8];
-				for (int i=0;i<6;i++)
-					for(int j=0;j<7;j++)
+				if (PP.GetStamina()>2.5f)
 				{
-					for (int k=0;k<7;k++)
-						alphamaps[i,j,k]=0f;
-					alphamaps[i,j,7]=1f;
+					Vector3[] tempDitches=new Vector3[DitchesCount];
+					
+					for (int i=0;i<DitchesCount;i++)
+						tempDitches[i]=Ditches[i];
+					
+					DitchesCount++;
+					Ditches=new Vector3[DitchesCount];
+					
+					for (int i=0;i<DitchesCount-1;i++)
+						Ditches[i]=tempDitches[i];
+					Ditches[DitchesCount-1].x=X;
+					Ditches[DitchesCount-1].z=Z;
+					float[,] heights;
+					heights=new float[6,6];
+					
+					heights=DiggingTerrain.terrainData.GetHeights((int)X-3,(int)Z-3,6,6);
+					
+					for (int i=0;i<6;i++)
+						for(int j=0;j<3;j++)
+							heights[i,j]+=(-(((float)j-1.5f)*((float)j-1.5f)/2.25f+((float)i-2.5f)*((float)i-2.5f)/6.25f)+2)/DiggingTerrain.terrainData.size.y;
+					for (int i=1;i<5;i++)
+						for(int j=4;j<6;j++)
+							heights[i,j]-=2.0f/DiggingTerrain.terrainData.size.y;
+					DiggingTerrain.terrainData.SetHeightsDelayLOD((int)X-3,(int)Z-3,heights);
+					DiggingTerrain.ApplyDelayedHeightmapModification();
+					float[,,] alphamaps;
+					alphamaps=new float[6,7,8];
+					for (int i=0;i<6;i++)
+						for(int j=0;j<7;j++)
+					{
+						for (int k=0;k<7;k++)
+							alphamaps[i,j,k]=0f;
+						alphamaps[i,j,7]=1f;
+					}
+					DiggingTerrain.terrainData.SetAlphamaps((int)X-4,(int)Z-4,alphamaps);
+					int[,] DetailDens;
+					DetailDens = DiggingTerrain.terrainData.GetDetailLayer((int)X-3,(int)Z-3,6,6,0);
+					
+					for (int i=0;i<6;i++)
+						for(int j=0;j<6;j++)
+							DetailDens[i,j]=0;
+					DiggingTerrain.terrainData.SetDetailLayer((int)X-3,(int)Z-3, 0, DetailDens); 
+					DetailDens = DiggingTerrain.terrainData.GetDetailLayer((int)X-3,(int)Z-3,6,6,1);
+					
+					for (int i=0;i<6;i++)
+						for(int j=0;j<6;j++)
+							DetailDens[i,j]=0;
+					DiggingTerrain.terrainData.SetDetailLayer((int)X-3,(int)Z-3, 1, DetailDens); 
+					PP.SetStamina(PP.GetStamina()-2.5f);
+					PlayTheDigAnim=true;
 				}
-				DiggingTerrain.terrainData.SetAlphamaps((int)X-4,(int)Z-4,alphamaps);
-				int[,] DetailDens;
-				DetailDens = DiggingTerrain.terrainData.GetDetailLayer((int)X-3,(int)Z-3,6,6,0);
-
-				for (int i=0;i<6;i++)
-					for(int j=0;j<6;j++)
-						DetailDens[i,j]=0;
-				DiggingTerrain.terrainData.SetDetailLayer((int)X-3,(int)Z-3, 0, DetailDens); 
-				DetailDens = DiggingTerrain.terrainData.GetDetailLayer((int)X-3,(int)Z-3,6,6,1);
-				
-				for (int i=0;i<6;i++)
-					for(int j=0;j<6;j++)
-						DetailDens[i,j]=0;
-				DiggingTerrain.terrainData.SetDetailLayer((int)X-3,(int)Z-3, 1, DetailDens); 
+				else{
+					ClearText=true;
+					Seconds=DateTime.Now.TimeOfDay.Seconds;
+					StaminaFail.text="You're too tired to dig";
+				}
 			}
 		}
 	}
