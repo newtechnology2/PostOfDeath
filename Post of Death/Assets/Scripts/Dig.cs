@@ -217,14 +217,10 @@ public class Dig : MonoBehaviour {
 					DiggingTerrain.terrainData.SetHeightsDelayLOD((int)X-3,(int)Z-3,heights);
 					DiggingTerrain.ApplyDelayedHeightmapModification();
 					float[,,] alphamaps;
-					alphamaps=new float[6,7,8];
+					alphamaps=new float[6,7,13];
 					for (int i=0;i<6;i++)
 						for(int j=0;j<7;j++)
-					{
-						for (int k=0;k<7;k++)
-							alphamaps[i,j,k]=0f;
-						alphamaps[i,j,7]=1f;
-					}
+							alphamaps[i,j,7]=1f;
 					DiggingTerrain.terrainData.SetAlphamaps((int)X-4,(int)Z-4,alphamaps);
 					int[,] DetailDens;
 					DetailDens = DiggingTerrain.terrainData.GetDetailLayer((int)X-3,(int)Z-3,6,6,0);
