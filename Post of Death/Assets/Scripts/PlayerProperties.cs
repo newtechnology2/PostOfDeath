@@ -43,42 +43,46 @@ public class PlayerProperties : MonoBehaviour
 
     public int GetStaminaFromBar()
     {
+        int val = 0;
+
         if (StaminaBar1.enabled)
-            return 1;
+            val += 1;
 
         if (StaminaBar2.enabled)
-            return 2;
+            val += 1;
 
         if (StaminaBar3.enabled)
-            return 3;
+            val += 1;
 
         if (StaminaBar4.enabled)
-            return 4;
+            val += 1;
 
         if (StaminaBar5.enabled)
-            return 5;
+            val += 1;
 
-        return 0; 
+        return val; 
     }
 
     public int GetHealthFromBar()
     {
+        int val = 0;
+
         if (HealthBar1.enabled)
-            return 1;
+            val += 1;
 
         if (HealthBar2.enabled)
-            return 2;
+            val += 1;
 
         if (HealthBar3.enabled)
-            return 3;
+            val += 1;
 
         if (HealthBar4.enabled)
-            return 4;
+            val += 1;
 
         if (HealthBar5.enabled)
-            return 5;
+            val += 1;
 
-        return 0;
+        return val;
     }
 
     //Set Stamina in [0, 5] range

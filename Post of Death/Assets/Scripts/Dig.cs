@@ -51,10 +51,14 @@ public class Dig : MonoBehaviour {
 	private double Seconds2;
 	private bool DitchTimerRunning;
 	// Use this for initialization
+
+    EscapeMenu EscMenu;
+
 	void Start () {
 		NearByDitchID = -1;
 		DitchesCount = 0;
 		PP = FindObjectOfType<PlayerProperties>();
+        EscMenu = FindObjectOfType<EscapeMenu>();
 		PP.SetHealth (5.0f);
 	}
 	
@@ -62,8 +66,12 @@ public class Dig : MonoBehaviour {
 	void Update () {
 		if (DitchTimerRunning && DateTime.Now.TimeOfDay.TotalSeconds - Seconds2 > 2) {
 			DitchTimerRunning=false;
+
+            EscMenu.SaveStuff();
+
 			Application.LoadLevel("DeathRealm");
 		}
+
 		PlayTheDigAnim = false;
 		PlayTheFillAnim = false;
 
@@ -153,7 +161,7 @@ public class Dig : MonoBehaviour {
 				
 				if (Keys.SecondaryActionKey.pressed)
 				{
-					if (PP.GetStamina()>1.0f)
+                    if (PP.GetStaminaFromBar() > 1.0f)
 					{
 						float[,] heights;
 						heights=new float[6,6];
@@ -179,7 +187,7 @@ public class Dig : MonoBehaviour {
 						else
 							Ditches[i]=tempDitches[i+1];
 						
-						PP.SetStamina(PP.GetStamina()-1.0f);
+						PP.SetStamina(PP.GetStaminaFromBar()-1.0f);
 						PlayTheFillAnim=true;
 					}
 					else{
@@ -198,7 +206,7 @@ public class Dig : MonoBehaviour {
 			TheDig.position=CameraTransform.position;
 			if(Keys.PrimaryActionKey.pressed)
 			{
-				if (PP.GetStamina()>2.5f)
+				if (PP.GetStaminaFromBar()>2)
 				{
 					Vector3[] tempDitches=new Vector3[DitchesCount];
 					
@@ -244,7 +252,7 @@ public class Dig : MonoBehaviour {
 						for(int j=0;j<6;j++)
 							DetailDens[i,j]=0;
 					DiggingTerrain.terrainData.SetDetailLayer((int)X-3,(int)Z-3, 1, DetailDens); 
-					PP.SetStamina(PP.GetStamina()-2.5f);
+					PP.SetStamina(PP.GetStaminaFromBar()-2.5f);
 					PlayTheDigAnim=true;
 				}
 				else{

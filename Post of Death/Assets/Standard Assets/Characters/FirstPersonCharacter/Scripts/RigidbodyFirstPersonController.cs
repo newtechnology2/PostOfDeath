@@ -100,19 +100,39 @@ namespace UnityStandardAssets.Characters.FirstPerson
                         int NoBarsToBeReduced = (int)Mathf.Floor(TimeElapsed);
 
                         if (NoBarsToBeReduced == 1)
+                        {
                             StaminaBar1.enabled = false;
+                        }
 
                         if (NoBarsToBeReduced == 2)
+                        {
+                            StaminaBar1.enabled = false;
                             StaminaBar2.enabled = false;
+                        }
 
                         if (NoBarsToBeReduced == 3)
+                        {
+                            StaminaBar1.enabled = false;
+                            StaminaBar2.enabled = false;
                             StaminaBar3.enabled = false;
+                        }
 
                         if (NoBarsToBeReduced == 4)
+                        {
+                            StaminaBar1.enabled = false;
+                            StaminaBar2.enabled = false;
+                            StaminaBar3.enabled = false;
                             StaminaBar4.enabled = false;
+                        }
 
                         if (NoBarsToBeReduced == 5)
+                        {
+                            StaminaBar1.enabled = false;
+                            StaminaBar2.enabled = false;
+                            StaminaBar3.enabled = false;
+                            StaminaBar4.enabled = false;
                             StaminaBar5.enabled = false;
+                        }
 
 
                     }
@@ -218,6 +238,11 @@ namespace UnityStandardAssets.Characters.FirstPerson
                 m_Jump = true;
             }
 
+            if (!movementSettings.StaminaBar1.enabled && !movementSettings.StaminaBar2.enabled &&
+                !movementSettings.StaminaBar3.enabled && !movementSettings.StaminaBar4.enabled &&
+                !movementSettings.StaminaBar5.enabled)
+                movementSettings.RegenerateStamina = true;
+
             if (movementSettings.RegenerateStamina)
             {
                 movementSettings.TimeElapsed += Time.deltaTime;
@@ -228,16 +253,34 @@ namespace UnityStandardAssets.Characters.FirstPerson
                     movementSettings.StaminaBar1.enabled = true;
 
                 if (NoBarsToBeAdded == 2)
+                {
+                    movementSettings.StaminaBar1.enabled = true;
                     movementSettings.StaminaBar2.enabled = true;
+                }
 
                 if (NoBarsToBeAdded == 3)
+                {
+                    movementSettings.StaminaBar1.enabled = true;
+                    movementSettings.StaminaBar2.enabled = true;
                     movementSettings.StaminaBar3.enabled = true;
+                }
 
                 if (NoBarsToBeAdded == 4)
+                {
+                    movementSettings.StaminaBar1.enabled = true;
+                    movementSettings.StaminaBar2.enabled = true;
+                    movementSettings.StaminaBar3.enabled = true;
                     movementSettings.StaminaBar4.enabled = true;
+                }
 
                 if (NoBarsToBeAdded == 5)
+                {
+                    movementSettings.StaminaBar1.enabled = true;
+                    movementSettings.StaminaBar2.enabled = true;
+                    movementSettings.StaminaBar3.enabled = true;
+                    movementSettings.StaminaBar4.enabled = true;
                     movementSettings.StaminaBar5.enabled = true;
+                }
 
 
                 if (NoBarsToBeAdded >= 5)

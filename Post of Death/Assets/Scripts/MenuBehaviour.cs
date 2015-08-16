@@ -26,18 +26,15 @@ public class MenuBehaviour : MonoBehaviour
 
     public void StartNewGame()
     {
+        PlayerPrefs.DeleteAll();
         Application.LoadLevel("PostOfDeath");
     }
 
     public void LoadGame()
     {
-
-    }
-
-    public void LoadLevel_PlayMenu()
-    {
         Application.LoadLevel("PostOfDeath");
     }
+
 
     public void EnablePlay_SubMenu()
     {

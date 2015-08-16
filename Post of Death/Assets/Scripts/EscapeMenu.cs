@@ -17,19 +17,36 @@ public class EscapeMenu : MonoBehaviour
 
     PlayerProperties PP;
 
+
+    Dig dig;
+
     bool EnableMenu = false;
 
+    void Awake()
+    {
+        dig = FindObjectOfType<Dig>();
+
+        int Length = PlayerPrefs.GetInt("DataLength", 0);
+
+        float[] Data = new float[Length];
+
+        for (int i = 0; i < Length; ++i)
+        {
+            Data[i] = PlayerPrefs.GetFloat("Data" + i);
+        }
+
+        if (Length != 0)
+            dig.SetDitchData(Data, Length);
+
+    }
 	void Start () 
     {
 
-
         if (PlayerPrefs.GetFloat("Clock", -99.0f) != -99.0f)
         {
-            Debug.Log("Set!");
-            Clock.SetPastTime((double)PlayerPrefs.GetFloat("Clock"));
+             Debug.Log("Set!");
+             Clock.SetPastTime((double)PlayerPrefs.GetFloat("Clock"));
         }
-
-        Debug.Log(PlayerPrefs.GetFloat("Clock"));
 
         
         EscMenu = GameObject.Find("Canvas").transform.FindChild("EscapeMenu").gameObject;
@@ -46,14 +63,30 @@ public class EscapeMenu : MonoBehaviour
         ButtonSound.Play();
     }
 
-    public void BacktoMenu()
+    public void SaveStuff()
     {
         PlayerPrefs.SetFloat("Health", PP.GetHealth());
         PlayerPrefs.SetFloat("Stamina", PP.GetStamina());
 
         PlayerPrefs.SetFloat("Clock", (float)Clock.GetTime().TotalHours + (float)Clock.GetPastTime());
 
+        float[] Data = dig.GetDitchData();
+
+        for (int i = 0; i < Data.Length; ++i)
+        {
+            PlayerPrefs.SetFloat("Data" + i, Data[i]);
+        }
+
+        PlayerPrefs.SetInt("DataLength", Data.Length);
+
+
         PlayerPrefs.Save();
+    }
+
+    public void BacktoMenu()
+    {
+
+        SaveStuff();
 
         Application.LoadLevel("Menu");
     }
