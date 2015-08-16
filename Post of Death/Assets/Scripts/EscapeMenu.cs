@@ -14,17 +14,30 @@ public class EscapeMenu : MonoBehaviour
     public AudioSource ButtonSound;
 
     RigidbodyFirstPersonController Controller;
-    
+
+    PlayerProperties PP;
+
     bool EnableMenu = false;
 
 	void Start () 
     {
+
+
+        if (PlayerPrefs.GetFloat("Clock", -99.0f) != -99.0f)
+        {
+            Clock.SetPastTime((double)PlayerPrefs.GetFloat("Clock"));
+        }
+
+        Debug.Log(PlayerPrefs.GetFloat("Clock"));
+
+        
         EscMenu = GameObject.Find("Canvas").transform.FindChild("EscapeMenu").gameObject;
         EscMenu.SetActive(false);
 
         EnableMenu = false;
 
         Controller = FindObjectOfType<RigidbodyFirstPersonController>();
+        PP = FindObjectOfType<PlayerProperties>();
 	}
 
     public void PlayButtonSound()
@@ -34,6 +47,13 @@ public class EscapeMenu : MonoBehaviour
 
     public void BacktoMenu()
     {
+        PlayerPrefs.SetFloat("Health", PP.GetHealth());
+        PlayerPrefs.SetFloat("Stamina", PP.GetStamina());
+
+        PlayerPrefs.SetFloat("Clock", (float)Clock.GetTime().TotalHours);
+
+        PlayerPrefs.Save();
+
         Application.LoadLevel("Menu");
     }
 
