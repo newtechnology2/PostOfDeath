@@ -48,7 +48,7 @@ public class Ghost : MonoBehaviour {
 				Ghosts [i]=RandomMovement;
 				RandomMovement=camera.position-RandomMovement;
 				RandomMovement.y=0.0f;
-				if (GhostOnAttack == -1&&RandomMovement.magnitude<AttackRidious) {
+				if (GhostOnAttack == -1&&RandomMovement.magnitude<AttackRidious&&!Dig.InUnwantedArea) {
 					GhostOnAttack=i;
 					AttackStart=DateTime.Now.TimeOfDay.TotalSeconds;
 					GhostMusic.Play();

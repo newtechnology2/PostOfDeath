@@ -13,7 +13,7 @@ public class Guy : MonoBehaviour {
 	public static bool TakingShovelInHands;
 	public static bool StartTakingShovelInHands;
 	public static bool TakingShovelInHandsEnded;
-
+	public static int Level;
 	// Use this for initialization
 	void Start () {
 		OnShovel=true;

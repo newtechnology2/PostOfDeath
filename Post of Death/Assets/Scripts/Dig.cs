@@ -40,7 +40,7 @@ public class Dig : MonoBehaviour {
 
 	public Terrain DiggingTerrain;
 
-	private bool InUnwantedArea;
+	public static bool InUnwantedArea;
 	public static int DitchesCount;
 
 	public static Vector3[] Ditches;
