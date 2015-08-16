@@ -255,7 +255,7 @@ public class Dig : MonoBehaviour {
 			}
 		}
 	}
-	void SetDitchData(float[] FDitches,int ArraySize)
+	public void SetDitchData(float[] FDitches,int ArraySize)
 	{
 		DitchesCount = ArraySize / 3;
 		Ditches=new Vector3[DitchesCount];
@@ -288,7 +288,8 @@ public class Dig : MonoBehaviour {
 		}
 		DiggingTerrain.ApplyDelayedHeightmapModification();
 	}
-	float[] GetDitchData()
+
+    public float[] GetDitchData()
 	{
 		float[] FDitches=new float[DitchesCount*3];
 		for (int m=0; m<DitchesCount; m++) {

@@ -25,6 +25,7 @@ public class EscapeMenu : MonoBehaviour
 
         if (PlayerPrefs.GetFloat("Clock", -99.0f) != -99.0f)
         {
+            Debug.Log("Set!");
             Clock.SetPastTime((double)PlayerPrefs.GetFloat("Clock"));
         }
 
@@ -50,7 +51,7 @@ public class EscapeMenu : MonoBehaviour
         PlayerPrefs.SetFloat("Health", PP.GetHealth());
         PlayerPrefs.SetFloat("Stamina", PP.GetStamina());
 
-        PlayerPrefs.SetFloat("Clock", (float)Clock.GetTime().TotalHours);
+        PlayerPrefs.SetFloat("Clock", (float)Clock.GetTime().TotalHours + (float)Clock.GetPastTime());
 
         PlayerPrefs.Save();
 
