@@ -7,6 +7,7 @@ public class RealmChange : MonoBehaviour {
 	void OnCollisionEnter(Collision col)
 	{
 		if (col.gameObject.name == "Body_col") {
+			PlayerPrefs.SetInt("GuyLevel",HintPlacer.Level+1);
 			Application.LoadLevel("PostOfDeath");
 		}
 	}

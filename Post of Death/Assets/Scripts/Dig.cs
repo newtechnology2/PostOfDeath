@@ -65,7 +65,6 @@ public class Dig : MonoBehaviour {
 		if (MovedToOtherWorld) 
         {
 			MovedToOtherWorld=false;
-			Guy.Level++;
 		}
        
         if (SD.FinishedPlayingAnimation)
