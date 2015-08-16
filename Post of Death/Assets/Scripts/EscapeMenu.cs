@@ -51,6 +51,7 @@ public class EscapeMenu : MonoBehaviour
         if (PlayerPrefs.GetFloat("Clock", -99.0f) != -99.0f)
         {
              Debug.Log("Set!");
+             Debug.Log("Time: " + PlayerPrefs.GetFloat("Clock"));
              Clock.SetPastTime((double)PlayerPrefs.GetFloat("Clock"));
         }
 
