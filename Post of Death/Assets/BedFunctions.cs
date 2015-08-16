@@ -30,6 +30,8 @@ public class BedFunctions : MonoBehaviour {
 			Keys.KeyText = Keys.KeyText + " to sleep" + '\n' + "Press ";
 			Keys.KeyText = Keys.KeyText + Keys.SecondaryActionKey.Key.ToString ();
 			Keys.KeyText = Keys.KeyText + " to save game";
+			if (Keys.PrimaryActionKey.pressed)
+				Guy.StartPuttingShovelOnBack = true;
 		} else {
 			NearBed = false;
 		}

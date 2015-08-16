@@ -22,6 +22,7 @@ public class OnEnteringRiver : MonoBehaviour
         PlayerBody.SetActive(false);
 
         PlayerIsInRiver = true;
+		Guy.StartPuttingShovelOnBack = true;
     }
 
     void OnCollisionExit(Collision collisionInfo)

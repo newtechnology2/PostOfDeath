@@ -133,6 +133,7 @@ public class Dig : MonoBehaviour {
 					InTheDitch = true;
 				DitchTimerRunning = true;
 				Seconds2=DateTime.Now.TimeOfDay.TotalSeconds;
+				Guy.StartPuttingShovelOnBack = true;
 			} else {
 				Keys.KeyText = Keys.KeyText + '\n' + "Press ";
 				Keys.KeyText = Keys.KeyText + Keys.PrimaryActionKey.Key.ToString ();
@@ -253,5 +254,48 @@ public class Dig : MonoBehaviour {
 				}
 			}
 		}
+	}
+	void SetDitchData(float[] FDitches,int ArraySize)
+	{
+		DitchesCount = ArraySize / 3;
+		Ditches=new Vector3[DitchesCount];
+		for (int m=0;m<ArraySize/3;m++)
+		{
+			Ditches[m].x=FDitches[m* 3];
+			Ditches[m].y=FDitches[m*3+1];
+			Ditches[m].z=FDitches[m*3+2];
+
+			float X=Ditches[m].x,Z=Ditches[m].z;
+
+			float[,] heights;
+			heights=new float[6,6];
+			
+			heights=DiggingTerrain.terrainData.GetHeights((int)X-3,(int)Z-3,6,6);
+			
+			for (int i=0;i<6;i++)
+				for(int j=0;j<3;j++)
+					heights[i,j]+=(-(((float)j-1.5f)*((float)j-1.5f)/2.25f+((float)i-2.5f)*((float)i-2.5f)/6.25f)+2)/DiggingTerrain.terrainData.size.y;
+			for (int i=1;i<5;i++)
+				for(int j=4;j<6;j++)
+					heights[i,j]-=2.0f/DiggingTerrain.terrainData.size.y;
+			DiggingTerrain.terrainData.SetHeightsDelayLOD((int)X-3,(int)Z-3,heights);
+			float[,,] alphamaps;
+			alphamaps=new float[6,7,13];
+			for (int i=0;i<6;i++)
+				for(int j=0;j<7;j++)
+					alphamaps[i,j,7]=1f;
+			DiggingTerrain.terrainData.SetAlphamaps((int)X-4,(int)Z-4,alphamaps);
+		}
+		DiggingTerrain.ApplyDelayedHeightmapModification();
+	}
+	float[] GetDitchData()
+	{
+		float[] FDitches=new float[DitchesCount*3];
+		for (int m=0; m<DitchesCount; m++) {
+			FDitches [m * 3]=Ditches [m].x;
+			FDitches [m * 3 + 1]=Ditches [m].y;
+			FDitches [m * 3 + 2]=Ditches [m].z;
+		}
+		return FDitches;
 	}
 }
