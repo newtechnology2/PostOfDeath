@@ -13,6 +13,7 @@ public class EscapeMenu : MonoBehaviour
     public GameObject ClockText;
     public GameObject KeyNames;
     public GameObject CannotSleepMsg;
+    public Transform PlayerPosition;
 
     public AudioSource ButtonSound;
 
@@ -35,6 +36,15 @@ public class EscapeMenu : MonoBehaviour
 
         int Length = PlayerPrefs.GetInt("DataLength", 0);
 
+        float x = PlayerPrefs.GetFloat("PosX", 0.0f);
+        float y = PlayerPrefs.GetFloat("PosY", 0.0f);
+        float z = PlayerPrefs.GetFloat("PosZ", 0.0f);
+
+        if (!(x == 0 && y == 0 && z == 0))
+        {
+            PlayerPosition.position = new Vector3(x, y, z);
+        }
+
         float[] Data = new float[Length];
 
         for (int i = 0; i < Length; ++i)
@@ -54,6 +64,7 @@ public class EscapeMenu : MonoBehaviour
         {
              Debug.Log("Set!");
              Debug.Log("Time: " + PlayerPrefs.GetFloat("Clock"));
+
              clock.SetPastTime((double)PlayerPrefs.GetFloat("Clock"));
         }
 
@@ -86,6 +97,10 @@ public class EscapeMenu : MonoBehaviour
     {
         PlayerPrefs.SetFloat("Health", PP.GetHealth());
         PlayerPrefs.SetFloat("Stamina", PP.GetStamina());
+
+        PlayerPrefs.SetFloat("PosX", PlayerPosition.position.x);
+        PlayerPrefs.SetFloat("PosY", PlayerPosition.position.y);
+        PlayerPrefs.SetFloat("PosZ", PlayerPosition.position.z);
 
         PlayerPrefs.SetFloat("Clock", (float)Clock.GetTime().TotalHours + (float)clock.GetPastTime());
 
