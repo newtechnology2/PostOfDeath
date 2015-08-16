@@ -8,6 +8,7 @@ public class Dig : MonoBehaviour {
 
 	public static bool LayDownInTheDitch;
 	public static bool InTheDitch;
+	public static bool MovedToOtherWorld;
 	public static bool GetOutTheDitch;
 	public static bool PlayTheDigAnim;
 	public static bool PlayTheFillAnim;
@@ -48,8 +49,6 @@ public class Dig : MonoBehaviour {
 	private PlayerProperties PP;
 	private bool ClearText;
 	private double Seconds;
-	private double Seconds2;
-	private bool DitchTimerRunning;
 	// Use this for initialization
     SleepInDitch SD;
     EscapeMenu EscMenu;
@@ -64,14 +63,14 @@ public class Dig : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-		if (DitchTimerRunning && DateTime.Now.TimeOfDay.TotalSeconds - Seconds2 > 5) {
-			DitchTimerRunning=false;
+		if (MovedToOtherWorld) {
+			MovedToOtherWorld=false;
+			Guy.Level++;
 		}
-
         if (SD.FinishedPlayingAnimation)
         {
+			MovedToOtherWorld=true;
             EscMenu.SaveStuff();
-
             Application.LoadLevel("DeathRealm");
         }
 
@@ -145,8 +144,6 @@ public class Dig : MonoBehaviour {
 					InTheDitch = true;
 					Guy.StartPuttingShovelOnBack = true;
 				}
-				DitchTimerRunning = true;
-				Seconds2=DateTime.Now.TimeOfDay.TotalSeconds;
 			} else {
 				Keys.KeyText = Keys.KeyText + '\n' + "Press ";
 				Keys.KeyText = Keys.KeyText + Keys.PrimaryActionKey.Key.ToString ();
