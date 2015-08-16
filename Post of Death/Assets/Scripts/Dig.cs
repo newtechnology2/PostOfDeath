@@ -69,7 +69,7 @@ public class Dig : MonoBehaviour {
 
             EscMenu.SaveStuff();
 
-			Application.LoadLevel("DeathRealm");
+			//Application.LoadLevel("DeathRealm");
 		}
 
 		PlayTheDigAnim = false;
