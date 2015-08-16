@@ -234,7 +234,7 @@ public class Dig : MonoBehaviour {
 					DiggingTerrain.terrainData.SetHeightsDelayLOD((int)X-3,(int)Z-3,heights);
 					DiggingTerrain.ApplyDelayedHeightmapModification();
 					float[,,] alphamaps;
-					alphamaps=new float[6,7,13];
+					alphamaps=new float[6,7,12];
 					for (int i=0;i<6;i++)
 						for(int j=0;j<7;j++)
 							alphamaps[i,j,7]=1f;

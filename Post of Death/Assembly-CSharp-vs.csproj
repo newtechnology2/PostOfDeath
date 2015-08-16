@@ -47,9 +47,11 @@
   </ItemGroup>
   <ItemGroup>
      <Compile Include="Assets\BedFunctions.cs" />
+     <Compile Include="Assets\BodyPlacer.cs" />
      <Compile Include="Assets\Clock.cs" />
      <Compile Include="Assets\Ghost.cs" />
      <Compile Include="Assets\GravePlacer.cs" />
+     <Compile Include="Assets\HintPlacer.cs" />
      <Compile Include="Assets\InfiniteTerrain.cs" />
      <Compile Include="Assets\Keys.cs" />
      <Compile Include="Assets\L_FG_Assets_Pack_Lite\Standard Assets\Effects\ImageEffects\Scripts\Antialiasing.cs" />
@@ -90,6 +92,7 @@
      <Compile Include="Assets\L_FG_Assets_Pack_Lite\Standard Assets\Effects\ImageEffects\Scripts\Twirl.cs" />
      <Compile Include="Assets\L_FG_Assets_Pack_Lite\Standard Assets\Effects\ImageEffects\Scripts\VignetteAndChromaticAberration.cs" />
      <Compile Include="Assets\L_FG_Assets_Pack_Lite\Standard Assets\Effects\ImageEffects\Scripts\Vortex.cs" />
+     <Compile Include="Assets\LightFLash.cs" />
      <Compile Include="Assets\MistFollowPlayer.cs" />
      <Compile Include="Assets\Moon.cs" />
      <Compile Include="Assets\Play_amb.cs" />
@@ -99,8 +102,10 @@
      <Compile Include="Assets\Scripts\CharacterAnims.cs" />
      <Compile Include="Assets\Scripts\Dig.cs" />
      <Compile Include="Assets\Scripts\DitchJumpOut.cs" />
+     <Compile Include="Assets\Scripts\EscapeMenu.cs" />
      <Compile Include="Assets\Scripts\Guy.cs" />
      <Compile Include="Assets\Scripts\MenuBehaviour.cs" />
+     <Compile Include="Assets\Scripts\MenuCheck.cs" />
      <Compile Include="Assets\Scripts\OnEnteringRiver.cs" />
      <Compile Include="Assets\Scripts\OnGhostAttack.cs" />
      <Compile Include="Assets\Scripts\PlaceRandom.cs" />
@@ -108,8 +113,10 @@
      <Compile Include="Assets\Scripts\ShovelAnimation.cs" />
      <Compile Include="Assets\Scripts\SleepAnim.cs" />
      <Compile Include="Assets\Scripts\SleepFix.cs" />
+     <Compile Include="Assets\Scripts\SleepInDitch.cs" />
      <Compile Include="Assets\Scripts\SplashScreen.cs" />
      <Compile Include="Assets\Sun.cs" />
+     <Compile Include="Assets\Timer.cs" />
      <None Include="Assets\L_FG_Assets_Pack_Lite\Standard Assets\Effects\ImageEffects\Shaders\_BloomAndFlares\BlendOneOne.shader" />
      <None Include="Assets\L_FG_Assets_Pack_Lite\Standard Assets\Effects\ImageEffects\Shaders\NoiseEffectShaderRGB.shader" />
      <None Include="Assets\Standard Assets\water well\readme.txt" />
