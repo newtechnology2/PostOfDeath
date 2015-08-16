@@ -146,9 +146,9 @@ public class EscapeMenu : MonoBehaviour
     {
 
         if (GameOverText.activeInHierarchy)
-            SaveStuff();
-        else
             PlayerPrefs.DeleteAll();
+        else
+            SaveStuff();
 
         Application.LoadLevel("Menu");
     }
@@ -156,9 +156,9 @@ public class EscapeMenu : MonoBehaviour
     public void Exit()
     {
         if (GameOverText.activeInHierarchy)
-            SaveStuff();
-        else
             PlayerPrefs.DeleteAll();
+        else
+            SaveStuff();
 
         Application.Quit();
     }
