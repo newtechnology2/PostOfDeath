@@ -31,14 +31,14 @@ public class Guy : MonoBehaviour {
 			Keys.KeyText = Keys.KeyText + '\n' + "Press ";
 			Keys.KeyText = Keys.KeyText + Keys.ChangeToolActionKey.Key.ToString ();
 			Keys.KeyText = Keys.KeyText + " to put shovel on back";
-			Keys.KeyText = Keys.KeyText + '\n' + "Press ";
+			/*Keys.KeyText = Keys.KeyText + '\n' + "Press ";
 			Keys.KeyText = Keys.KeyText + Keys.DropActionKey.Key.ToString ();
 			Keys.KeyText = Keys.KeyText + " to drop shovel";
 			if (Keys.DropActionKey.pressed)
 			{
 				OnShovel=false;
 				HasShovel=false;
-			}
+			}*/
 			if ((Keys.ChangeToolActionKey.pressed||StartPuttingShovelOnBack))
 			{
 				PuttingShovelOnBack=true;

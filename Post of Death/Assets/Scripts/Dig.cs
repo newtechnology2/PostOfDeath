@@ -58,7 +58,6 @@ public class Dig : MonoBehaviour {
 		PP = FindObjectOfType<PlayerProperties>();
         EscMenu = FindObjectOfType<EscapeMenu>();
         SD = FindObjectOfType<SleepInDitch>();
-		PP.SetHealth (5.0f);
 	}
 	
 	// Update is called once per frame

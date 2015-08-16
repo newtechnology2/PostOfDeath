@@ -11,8 +11,8 @@ public class LightFLash : MonoBehaviour {
 	{
 		float alpha = flash_canvas.alpha;
 		GameObject go = GameObject.Find ("Body");
-		float distance = Vector3.Distance (go.transform.position, gameObject.transform.position);
-		alpha = ( (distance_start-distance)/distance_start ) * 255;
+		float distance = (go.transform.position-gameObject.transform.position).magnitude;
+		alpha = ( Mathf.Clamp((distance_start-distance),0,distance_start)/distance_start );
 
 		flash_canvas.alpha = alpha;
 	}
