@@ -10,7 +10,7 @@ public class SleepAnim : MonoBehaviour
 	BedFunctions B;
 	Animation AnimComponent;
 	RigidbodyFirstPersonController PlayerControl;
-
+    PlayerProperties PP;
     GameObject Body;
 
     bool Played = false;
@@ -23,12 +23,15 @@ public class SleepAnim : MonoBehaviour
 
     public Text CannotSleepMsg;
 
+    float TimeElapsed = 0;
+
 	void Start () 
 	{
 		B = FindObjectOfType<BedFunctions>();
 		AnimComponent = GetComponent<Animation>();
 		PlayerControl = GetComponent<RigidbodyFirstPersonController>();
         House_Programmer = FindObjectOfType<SleepFix>();
+        PP = FindObjectOfType<PlayerProperties>();
 
         Body = this.gameObject.transform.FindChild("Body").gameObject;
 
@@ -96,6 +99,21 @@ public class SleepAnim : MonoBehaviour
             Body.SetActive(true);
 
             PlayedReverseAnim = false;
+        }
+
+
+        if (Played && !PlayedReverseAnim)
+        {
+            TimeElapsed += Time.deltaTime;
+
+            int NoBarsToBeAdded = (int)Mathf.Floor(TimeElapsed);
+
+            PP.SetHealth(NoBarsToBeAdded);
+            PP.SetStamina(NoBarsToBeAdded);
+        }
+        else
+        {
+            TimeElapsed = 0;
         }
 	}
 }
