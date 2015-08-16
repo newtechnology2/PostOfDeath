@@ -140,10 +140,7 @@ public class Dig : MonoBehaviour {
 				GetOutTheDitch = false;
 				LayDownInTheDitch = Keys.PrimaryActionKey.pressed;
 				if (LayDownInTheDitch)
-				{
 					InTheDitch = true;
-					Guy.StartPuttingShovelOnBack = true;
-				}
 			} else {
 				Keys.KeyText = Keys.KeyText + '\n' + "Press ";
 				Keys.KeyText = Keys.KeyText + Keys.PrimaryActionKey.Key.ToString ();
