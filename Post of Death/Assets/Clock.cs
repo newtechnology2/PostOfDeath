@@ -43,6 +43,6 @@ public class Clock : MonoBehaviour {
 	//set the past time
 	public static double GetPastTime()
 	{
-		return HToTheGame;
+		return HToTheGame-StartH;
 	}
 }
