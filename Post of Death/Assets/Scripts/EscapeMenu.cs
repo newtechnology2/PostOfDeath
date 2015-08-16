@@ -60,6 +60,12 @@ public class EscapeMenu : MonoBehaviour
             PlayerPosition.position = new Vector3(x, y, z);
         }
 
+        if (PlayerPrefs.GetInt("MovedToOtherWorld", 0) == 0)
+            Dig.MovedToOtherWorld = false;
+        else
+            Dig.MovedToOtherWorld = true;
+
+
         Guy.Level = PlayerPrefs.GetInt("GuyLevel", 0);
 
         if (PlayerPrefs.GetInt("InTheDitch", 0) == 0)
@@ -115,7 +121,11 @@ public class EscapeMenu : MonoBehaviour
             PlayerPrefs.SetInt("InTheDitch", 1);
         else
             PlayerPrefs.SetInt("InTheDitch", 0);
-        
+
+        if (Dig.MovedToOtherWorld == true)
+            PlayerPrefs.SetInt("MovedToOtherWorld", 1);
+        else
+            PlayerPrefs.SetInt("MovedToOtherWorld", 0);
       
         PlayerPrefs.SetFloat("Clock", (float)Clock.GetTime().TotalHours + (float)clock.GetPastTime());
 
