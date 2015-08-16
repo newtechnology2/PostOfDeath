@@ -145,14 +145,20 @@ public class EscapeMenu : MonoBehaviour
     public void BacktoMenu()
     {
 
-        SaveStuff();
+        if (GameOverText.activeInHierarchy)
+            PlayerPrefs.DeleteAll();
+        else
+            SaveStuff();
 
         Application.LoadLevel("Menu");
     }
 
     public void Exit()
     {
-        SaveStuff();
+        if (GameOverText.activeInHierarchy)
+            PlayerPrefs.DeleteAll();
+        else
+            SaveStuff();
 
         Application.Quit();
     }
