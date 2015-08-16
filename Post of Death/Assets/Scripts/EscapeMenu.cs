@@ -20,6 +20,7 @@ public class EscapeMenu : MonoBehaviour
 
     PlayerProperties PP;
 
+    Clock clock;
 
     Dig dig;
 
@@ -47,12 +48,13 @@ public class EscapeMenu : MonoBehaviour
     }
 	void Start () 
     {
+        clock = GameObject.Find("Texts").transform.FindChild("Canvas").FindChild("Clock").GetComponent<Clock>();
 
         if (PlayerPrefs.GetFloat("Clock", -99.0f) != -99.0f)
         {
              Debug.Log("Set!");
              Debug.Log("Time: " + PlayerPrefs.GetFloat("Clock"));
-             Clock.SetPastTime((double)PlayerPrefs.GetFloat("Clock"));
+             clock.SetPastTime((double)PlayerPrefs.GetFloat("Clock"));
         }
 
         
@@ -85,7 +87,7 @@ public class EscapeMenu : MonoBehaviour
         PlayerPrefs.SetFloat("Health", PP.GetHealth());
         PlayerPrefs.SetFloat("Stamina", PP.GetStamina());
 
-        PlayerPrefs.SetFloat("Clock", (float)Clock.GetTime().TotalHours + (float)Clock.GetPastTime());
+        PlayerPrefs.SetFloat("Clock", (float)Clock.GetTime().TotalHours + (float)clock.GetPastTime());
 
         float[] Data = dig.GetDitchData();
 

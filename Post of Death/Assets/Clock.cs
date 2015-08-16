@@ -7,7 +7,7 @@ public class Clock : MonoBehaviour {
 	public double StartH;
 	public double Time_Scaler;
 
-	public static double HToTheGame;
+	public double HToTheGame;
 
 	private DateTime TheStartCallTime;
 
@@ -22,8 +22,8 @@ public class Clock : MonoBehaviour {
 	void Update () {
 		DateTime temp = DateTime.Now;
 		Time = temp - TheStartCallTime;
-		Time = TimeSpan.FromHours (Time.TotalHours*Time_Scaler);
-		Time = Time.Add (TimeSpan.FromHours (StartH+HToTheGame));
+		Time = TimeSpan.FromHours (Time.TotalHours * Time_Scaler);
+		Time = Time.Add (TimeSpan.FromHours (StartH + HToTheGame));
 
 		Text.text = "Day: " + Time.Days + "    " + Time.Hours + ":" + Time.Minutes + ":" + Time.Seconds;
 	}
@@ -35,13 +35,13 @@ public class Clock : MonoBehaviour {
 	}
 
 	//set the past time
-	public static void SetPastTime(double hours)
+	public void SetPastTime(double hours)
 	{
 		HToTheGame=hours;
 	}
 
 	//set the past time
-	public static double GetPastTime()
+	public double GetPastTime()
 	{
 		return HToTheGame-StartH;
 	}
