@@ -8,12 +8,17 @@ public class SleepInDitch : MonoBehaviour
     Animation AnimComponent;
     RigidbodyFirstPersonController Controller;
     bool AnimWasPlayed = false;
+    public bool FinishedPlayingAnimation = false;
+    GameObject Body;
 
 	void Start () 
     {
         AnimComponent = GetComponent<Animation>();
         Controller = GetComponent<RigidbodyFirstPersonController>();
+        Body = this.gameObject.transform.FindChild("Body").gameObject;
+
         AnimWasPlayed = false;
+        FinishedPlayingAnimation = false;
 	}
 	
 
@@ -22,6 +27,8 @@ public class SleepInDitch : MonoBehaviour
        if (Dig.LayDownInTheDitch)
        {
            Controller.enabled = false;
+
+           Body.SetActive(false);
 
            AnimComponent.Play("SleepDitch");
 
@@ -33,6 +40,8 @@ public class SleepInDitch : MonoBehaviour
             //Controller.enabled = true;
 
             AnimWasPlayed = false;
+
+            FinishedPlayingAnimation = true;
         }
 
 	}

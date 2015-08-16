@@ -51,7 +51,7 @@ public class Dig : MonoBehaviour {
 	private double Seconds2;
 	private bool DitchTimerRunning;
 	// Use this for initialization
-
+    SleepInDitch SD;
     EscapeMenu EscMenu;
 
 	void Start () {
@@ -59,6 +59,7 @@ public class Dig : MonoBehaviour {
 		DitchesCount = 0;
 		PP = FindObjectOfType<PlayerProperties>();
         EscMenu = FindObjectOfType<EscapeMenu>();
+        SD = FindObjectOfType<SleepInDitch>();
 		PP.SetHealth (5.0f);
 	}
 	
@@ -66,11 +67,14 @@ public class Dig : MonoBehaviour {
 	void Update () {
 		if (DitchTimerRunning && DateTime.Now.TimeOfDay.TotalSeconds - Seconds2 > 2) {
 			DitchTimerRunning=false;
+		}
 
+        if (SD.FinishedPlayingAnimation)
+        {
             EscMenu.SaveStuff();
 
-			//Application.LoadLevel("DeathRealm");
-		}
+            Application.LoadLevel("DeathRealm");
+        }
 
 		PlayTheDigAnim = false;
 		PlayTheFillAnim = false;
