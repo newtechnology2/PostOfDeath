@@ -62,14 +62,17 @@ public class Dig : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-		if (MovedToOtherWorld) {
+		if (MovedToOtherWorld) 
+        {
 			MovedToOtherWorld=false;
 			Guy.Level++;
 		}
+       
         if (SD.FinishedPlayingAnimation)
         {
 			MovedToOtherWorld=true;
             EscMenu.SaveStuff();
+
             Application.LoadLevel("DeathRealm");
         }
 

@@ -26,6 +26,8 @@ public class SleepInDitch : MonoBehaviour
     {
        if (Dig.LayDownInTheDitch)
        {
+           Debug.Log("TRUE!");
+
            Controller.enabled = false;
 
            Body.SetActive(false);
@@ -40,6 +42,8 @@ public class SleepInDitch : MonoBehaviour
             //Controller.enabled = true;
 
             AnimWasPlayed = false;
+
+            Body.SetActive(true);
 
             FinishedPlayingAnimation = true;
         }
