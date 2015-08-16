@@ -56,7 +56,6 @@ public class Dig : MonoBehaviour {
 
 	void Start () {
 		NearByDitchID = -1;
-		DitchesCount = 0;
 		PP = FindObjectOfType<PlayerProperties>();
         EscMenu = FindObjectOfType<EscapeMenu>();
         SD = FindObjectOfType<SleepInDitch>();
@@ -65,7 +64,7 @@ public class Dig : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-		if (DitchTimerRunning && DateTime.Now.TimeOfDay.TotalSeconds - Seconds2 > 2) {
+		if (DitchTimerRunning && DateTime.Now.TimeOfDay.TotalSeconds - Seconds2 > 5) {
 			DitchTimerRunning=false;
 		}
 
@@ -142,10 +141,12 @@ public class Dig : MonoBehaviour {
 				GetOutTheDitch = false;
 				LayDownInTheDitch = Keys.PrimaryActionKey.pressed;
 				if (LayDownInTheDitch)
+				{
 					InTheDitch = true;
+					Guy.StartPuttingShovelOnBack = true;
+				}
 				DitchTimerRunning = true;
 				Seconds2=DateTime.Now.TimeOfDay.TotalSeconds;
-				Guy.StartPuttingShovelOnBack = true;
 			} else {
 				Keys.KeyText = Keys.KeyText + '\n' + "Press ";
 				Keys.KeyText = Keys.KeyText + Keys.PrimaryActionKey.Key.ToString ();
