@@ -36,15 +36,6 @@ public class EscapeMenu : MonoBehaviour
 
         int Length = PlayerPrefs.GetInt("DataLength", 0);
 
-        float x = PlayerPrefs.GetFloat("PosX", 0.0f);
-        float y = PlayerPrefs.GetFloat("PosY", 0.0f);
-        float z = PlayerPrefs.GetFloat("PosZ", 0.0f);
-
-        if (!(x == 0 && y == 0 && z == 0))
-        {
-            PlayerPosition.position = new Vector3(x, y, z);
-        }
-
         float[] Data = new float[Length];
 
         for (int i = 0; i < Length; ++i)
@@ -59,6 +50,22 @@ public class EscapeMenu : MonoBehaviour
 	void Start () 
     {
         clock = GameObject.Find("Texts").transform.FindChild("Canvas").FindChild("Clock").GetComponent<Clock>();
+
+        float x = PlayerPrefs.GetFloat("PosX", 0.0f);
+        float y = PlayerPrefs.GetFloat("PosY", 0.0f);
+        float z = PlayerPrefs.GetFloat("PosZ", 0.0f);
+
+        if (!(x == 0 && y == 0 && z == 0))
+        {
+            PlayerPosition.position = new Vector3(x, y, z);
+        }
+
+        Guy.Level = PlayerPrefs.GetInt("GuyLevel", 0);
+
+        if (PlayerPrefs.GetInt("InTheDitch", 0) == 0)
+            Dig.InTheDitch = false;
+        else if (PlayerPrefs.GetInt("InTheDitch", 0) == 1)
+            Dig.InTheDitch = true;
 
         if (PlayerPrefs.GetFloat("Clock", -99.0f) != -99.0f)
         {
@@ -102,6 +109,14 @@ public class EscapeMenu : MonoBehaviour
         PlayerPrefs.SetFloat("PosY", PlayerPosition.position.y);
         PlayerPrefs.SetFloat("PosZ", PlayerPosition.position.z);
 
+        PlayerPrefs.SetInt("GuyLevel", Guy.Level);
+
+        if (Dig.InTheDitch == true)
+            PlayerPrefs.SetInt("InTheDitch", 1);
+        else
+            PlayerPrefs.SetInt("InTheDitch", 0);
+        
+      
         PlayerPrefs.SetFloat("Clock", (float)Clock.GetTime().TotalHours + (float)clock.GetPastTime());
 
         float[] Data = dig.GetDitchData();
