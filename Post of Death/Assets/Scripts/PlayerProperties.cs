@@ -24,14 +24,14 @@ public class PlayerProperties : MonoBehaviour
 
     void Start()
     {
-		PlayerPrefs.SetFloat("Health", 5.0f);
-		PlayerPrefs.SetFloat("Stamina", 5.0f);
-
 		m_Health = PlayerPrefs.GetFloat("Health");
         m_Stamina = PlayerPrefs.GetFloat("Stamina");
 
         Debug.Log("Health: " + m_Health);
         Debug.Log("Stamina: " + m_Stamina);
+
+        SetStamina(m_Stamina);
+        SetHealth(m_Health);
     }
 
 

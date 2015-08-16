@@ -20,8 +20,14 @@ public class SplashScreen : MonoBehaviour
 
     GameObject EventSystem;
 
+    public GameObject MenuCheckGO;
+
 	void Start () 
     {
+
+        DontDestroyOnLoad(MenuCheckGO);
+
+
         //Default resolution
         Screen.SetResolution(1280, 720, false);
 
@@ -42,7 +48,6 @@ public class SplashScreen : MonoBehaviour
 
         _ScriptsHolder = GameObject.Find("_ScriptsHolder");
 
-
         for (int i = 0; i < AllObjects.Length; ++i)
         {
             AllObjects[i].gameObject.SetActive(false);
@@ -57,6 +62,11 @@ public class SplashScreen : MonoBehaviour
         Canvas.SetActive(true);
 
         EventSystem.SetActive(true);
+
+        MenuCheckGO.SetActive(true);
+
+
+
 
         Cam.GetComponent<CameraRotation>().enabled = false;
 
@@ -75,9 +85,10 @@ public class SplashScreen : MonoBehaviour
 
     void Update()
     {
+
         TimeElapsed += Time.deltaTime;
 
-        if (TimeElapsed > 5.0f)
+        if (TimeElapsed > 5.0f || MenuCheck.SplashScreenWasShown)
         {
 
             Cam.GetComponent<CameraRotation>().enabled = true;
@@ -89,12 +100,14 @@ public class SplashScreen : MonoBehaviour
             Credits.SetActive(true);
             Exit.SetActive(true);
 
+            MenuCheck.SplashScreenWasShown = true;
+
             for (int i = 0; i < AllObjects.Length; ++i)
             {
                 AllObjects[i].gameObject.SetActive(true);
             }
 
-            Destroy(this);
+            //Destroy(this);
         }
     }
 	

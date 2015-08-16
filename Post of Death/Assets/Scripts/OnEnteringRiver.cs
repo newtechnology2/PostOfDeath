@@ -17,6 +17,8 @@ public class OnEnteringRiver : MonoBehaviour
 
 	void OnCollisionEnter(Collision collision)
     {
+        Debug.Log("Entered river.");
+
         PlayerBody.SetActive(false);
 
         PlayerIsInRiver = true;
@@ -24,6 +26,7 @@ public class OnEnteringRiver : MonoBehaviour
 
     void OnCollisionExit(Collision collisionInfo)
     {
+        Debug.Log("Out of river.");
         PlayerBody.SetActive(true);
 
         PlayerIsInRiver = false;

@@ -108,7 +108,7 @@ public class ShovelAnimation : MonoBehaviour
         if (PutShovelbackAnimWasPlayed && !AnimComponent.IsPlaying("PutShovelBack"))
         {
             Shovel02.SetActive(false);
-            Shovel01.SetActive(true);
+            Shovel01.SetActive(false);
 
             PutShovelbackAnimWasPlayed = false;
 

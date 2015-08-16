@@ -52,6 +52,8 @@ public class OnGhostAttack : MonoBehaviour
         {
             TimeElapsed += Time.deltaTime;
 
+            PlayerController.enabled = false;
+
             if (TimeElapsed >= 3.0f)
             {
                 AnimComponent.Play("StandUpAnim");
@@ -64,7 +66,7 @@ public class OnGhostAttack : MonoBehaviour
             }
         }
 
-        if (StandingUp)
+        if (StandingUp && !AnimComponent.IsPlaying("StandUpAnim"))
         {
             PlayerController.enabled = true;
 
