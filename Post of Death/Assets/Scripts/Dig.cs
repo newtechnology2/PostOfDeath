@@ -49,6 +49,7 @@ public class Dig : MonoBehaviour {
 	private bool ClearText;
 	private double Seconds;
 	private double Seconds2;
+	private bool DitchTimerRunning;
 	// Use this for initialization
 	void Start () {
 		NearByDitchID = -1;
@@ -59,6 +60,10 @@ public class Dig : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
+		if (DitchTimerRunning && DateTime.Now.TimeOfDay.TotalSeconds - Seconds2 > 2) {
+			DitchTimerRunning=false;
+			Application.LoadLevel("DeathRealm");
+		}
 		PlayTheDigAnim = false;
 		PlayTheFillAnim = false;
 
@@ -126,6 +131,8 @@ public class Dig : MonoBehaviour {
 				LayDownInTheDitch = Keys.PrimaryActionKey.pressed;
 				if (LayDownInTheDitch)
 					InTheDitch = true;
+				DitchTimerRunning = true;
+				Seconds2=DateTime.Now.TimeOfDay.TotalSeconds;
 			} else {
 				Keys.KeyText = Keys.KeyText + '\n' + "Press ";
 				Keys.KeyText = Keys.KeyText + Keys.PrimaryActionKey.Key.ToString ();
@@ -145,7 +152,7 @@ public class Dig : MonoBehaviour {
 				
 				if (Keys.SecondaryActionKey.pressed)
 				{
-					if (PP.GetStamina()+10.0f>1.0f)
+					if (PP.GetStamina()>1.0f)
 					{
 						float[,] heights;
 						heights=new float[6,6];
@@ -190,7 +197,7 @@ public class Dig : MonoBehaviour {
 			TheDig.position=CameraTransform.position;
 			if(Keys.PrimaryActionKey.pressed)
 			{
-				if (PP.GetStamina()+10.0f>2.5f)
+				if (PP.GetStamina()>2.5f)
 				{
 					Vector3[] tempDitches=new Vector3[DitchesCount];
 					
