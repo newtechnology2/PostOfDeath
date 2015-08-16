@@ -23,7 +23,7 @@ public class Clock : MonoBehaviour {
 		DateTime temp = DateTime.Now;
 		Time = temp - TheStartCallTime;
 		Time = TimeSpan.FromHours (Time.TotalHours*Time_Scaler);
-		Time = Time.Add (TimeSpan.FromHours (StartH));
+		Time = Time.Add (TimeSpan.FromHours (StartH+HToTheGame));
 
 		Text.text = "Day: " + Time.Days + "    " + Time.Hours + ":" + Time.Minutes + ":" + Time.Seconds;
 	}
