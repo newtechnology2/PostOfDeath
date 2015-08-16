@@ -7,6 +7,9 @@ public class EscapeMenu : MonoBehaviour
 
     GameObject EscMenu;
 
+    public GameObject GameOverText;
+    public GameObject PlayAgainButton;
+
     public GameObject ClockText;
     public GameObject KeyNames;
     public GameObject CannotSleepMsg;
@@ -20,7 +23,10 @@ public class EscapeMenu : MonoBehaviour
 
     Dig dig;
 
-    bool EnableMenu = false;
+    public bool EnableMenu = false;
+    public bool DisableInput = false;
+
+    bool ControllerEnabled = false;
 
     void Awake()
     {
@@ -53,10 +59,20 @@ public class EscapeMenu : MonoBehaviour
         EscMenu.SetActive(false);
 
         EnableMenu = false;
+        ControllerEnabled = false;
 
         Controller = FindObjectOfType<RigidbodyFirstPersonController>();
         PP = FindObjectOfType<PlayerProperties>();
+
+        DisableInput = false;
 	}
+
+    public void PlayAgain()
+    {
+        PlayerPrefs.DeleteAll();
+
+        Application.LoadLevel(Application.loadedLevel);
+    }
 
     public void PlayButtonSound()
     {
@@ -93,19 +109,29 @@ public class EscapeMenu : MonoBehaviour
 
     public void Exit()
     {
+        SaveStuff();
+
         Application.Quit();
     }
 	
 	// Update is called once per frame
 	void Update () 
     {
-        if (Input.GetKeyDown(KeyCode.Escape))
+        if (Input.GetKeyDown(KeyCode.Escape) && !DisableInput)
         {
             EnableMenu = !EnableMenu;
         }
 
         if (EnableMenu)
         {
+            ControllerEnabled = false;
+
+            if (!DisableInput)
+            {
+                GameOverText.SetActive(false);
+                PlayAgainButton.SetActive(false);
+            }
+            
             ClockText.SetActive(false);
             KeyNames.SetActive(false);
             CannotSleepMsg.SetActive(false);
@@ -120,7 +146,12 @@ public class EscapeMenu : MonoBehaviour
             KeyNames.SetActive(true);
             CannotSleepMsg.SetActive(true);
 
-            Controller.enabled = true;
+            if (!ControllerEnabled)
+            {
+                Controller.enabled = true;
+
+                ControllerEnabled = true;
+            }
 
             EscMenu.SetActive(false);
         }

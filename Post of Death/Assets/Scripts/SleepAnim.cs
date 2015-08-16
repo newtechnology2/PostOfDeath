@@ -11,6 +11,8 @@ public class SleepAnim : MonoBehaviour
 	Animation AnimComponent;
 	RigidbodyFirstPersonController PlayerControl;
 
+    GameObject Body;
+
     bool Played = false;
 
     bool PlayedReverseAnim = false;
@@ -28,6 +30,7 @@ public class SleepAnim : MonoBehaviour
 		PlayerControl = GetComponent<RigidbodyFirstPersonController>();
         House_Programmer = FindObjectOfType<SleepFix>();
 
+        Body = this.gameObject.transform.FindChild("Body").gameObject;
 
         Played = false;
 
@@ -44,7 +47,7 @@ public class SleepAnim : MonoBehaviour
             //PlayerControl.enabled = true;
       //  }
 
-        if (B.NearBed && Keys.PrimaryActionKey.pressed && !Played && !AnimComponent.IsPlaying("SleepAnim")) 
+        if (B.NearBed && Keys.SleepActionKey.pressed && !Played && !AnimComponent.IsPlaying("SleepAnim")) 
 		{
             if (!House_Programmer.ShouldBeAbleToSleep)
             {
@@ -54,11 +57,11 @@ public class SleepAnim : MonoBehaviour
             else
                 CannotSleepMsg.text = "";
 
+            Body.SetActive(false);
 
             Debug.Log("Play Sleep Anim");
 
             AnimComponent["SleepAnim"].speed = +1;
-           // AnimComponent["SleepAnim"].time = AnimComponent["SleepAnim"].length;
       
 			AnimComponent.Play("SleepAnim");
         
@@ -68,10 +71,12 @@ public class SleepAnim : MonoBehaviour
 
             Played = true;
 		}
-       
-        if (Keys.PrimaryActionKey.pressed && Played && !AnimComponent.IsPlaying("SleepAnim")) 
+
+        if (Keys.SleepActionKey.pressed && Played && !AnimComponent.IsPlaying("SleepAnim")) 
         {
             Debug.Log("Reverse Play Sleep Anim");
+
+            Body.SetActive(false);
 
             AnimComponent["SleepAnim"].speed = -1;
             AnimComponent["SleepAnim"].time = AnimComponent["SleepAnim"].length;
@@ -87,6 +92,8 @@ public class SleepAnim : MonoBehaviour
         {
 
             PlayerControl.enabled = true;
+
+            Body.SetActive(true);
 
             PlayedReverseAnim = false;
         }

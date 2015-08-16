@@ -26,10 +26,13 @@ public class BedFunctions : MonoBehaviour {
 		if ( ActualDist< EffectingDistane&&Vector3.Dot(camera.forward,temp)/ActualDist>HalfEffectingAngleCos1&&(Vector3.Dot(temp,EffectingDirection)/ActualDist)/-EffectingDirection.magnitude>HalfEffectingAngleCos2) {
 			NearBed = true;
 			Keys.KeyText = Keys.KeyText + '\n' + "Press ";
-			Keys.KeyText = Keys.KeyText + Keys.PrimaryActionKey.Key.ToString ();
-			Keys.KeyText = Keys.KeyText + " to sleep" + '\n' + "Press ";
-			Keys.KeyText = Keys.KeyText + Keys.SecondaryActionKey.Key.ToString ();
-			Keys.KeyText = Keys.KeyText + " to save game";
+			Keys.KeyText = Keys.KeyText + Keys.SleepActionKey.Key.ToString ();
+            Keys.KeyText = Keys.KeyText + " to sleep" + '\n';//+ "Press ";
+			//Keys.KeyText = Keys.KeyText + Keys.SecondaryActionKey.Key.ToString ();
+			//Keys.KeyText = Keys.KeyText + " to save game";
+
+            //Save game is now handled by EscapeMenu and is automatically done when you exit.
+
 			if (Keys.PrimaryActionKey.pressed)
 				Guy.StartPuttingShovelOnBack = true;
 		} else {

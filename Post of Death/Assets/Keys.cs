@@ -13,6 +13,14 @@ public class Keys : MonoBehaviour {
 		public static bool pressed;
 		public static string KeyName;
 	}
+
+    public class SleepActionKey
+    {
+        public static KeyCode Key;
+        public static bool pressed;
+        public static string KeyName;
+    }
+
 	public class SecondaryActionKey
 	{
 		public static KeyCode Key;
@@ -43,6 +51,9 @@ public class Keys : MonoBehaviour {
 		PrimaryActionKey.Key = KeyCode.F;
 		PrimaryActionKey.KeyName = "Primery Action";
 
+        SleepActionKey.Key = KeyCode.U;
+        SleepActionKey.KeyName = "Sleep Action";
+
 		SecondaryActionKey.Key = KeyCode.H;
 		SecondaryActionKey.KeyName = "Secondary Action";
 
@@ -66,5 +77,6 @@ public class Keys : MonoBehaviour {
 		PickActionKey.pressed = Input.GetKeyDown (PickActionKey.Key);
 		DropActionKey.pressed = Input.GetKeyDown (DropActionKey.Key);
 		ChangeToolActionKey.pressed = Input.GetKeyDown (ChangeToolActionKey.Key);
+        SleepActionKey.pressed = Input.GetKeyDown(SleepActionKey.Key);
 	}
 }
