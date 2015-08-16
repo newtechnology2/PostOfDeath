@@ -48,6 +48,7 @@ public class Dig : MonoBehaviour {
 	private PlayerProperties PP;
 	private bool ClearText;
 	private double Seconds;
+	private double Seconds2;
 	// Use this for initialization
 	void Start () {
 		NearByDitchID = -1;
