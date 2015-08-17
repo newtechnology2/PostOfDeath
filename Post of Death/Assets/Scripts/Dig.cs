@@ -49,6 +49,14 @@ public class Dig : MonoBehaviour {
 	private PlayerProperties PP;
 	private bool ClearText;
 	private double Seconds;
+
+	public Vector3 Level1Ditch;
+	public Vector3 Level2Ditch;
+	public Vector3 Level3Ditch;
+	public Vector3 Level4Ditch;
+	public Vector3 Level5Ditch;
+
+	private bool InRightDitch;
 	// Use this for initialization
     SleepInDitch SD;
     EscapeMenu EscMenu;
@@ -67,11 +75,11 @@ public class Dig : MonoBehaviour {
 			MovedToOtherWorld=false;
 		}
        
-        if (SD.FinishedPlayingAnimation)
+		if (SD.FinishedPlayingAnimation&&InRightDitch)
         {
 			MovedToOtherWorld=true;
             EscMenu.SaveStuff();
-
+			InRightDitch=false;
             Application.LoadLevel("DeathRealm");
         }
 
@@ -128,12 +136,30 @@ public class Dig : MonoBehaviour {
 		float X = ((CameraTransform.position.x - TerrainPosition.x) / DiggingTerrain.terrainData.size.x) * DiggingTerrain.terrainData.alphamapWidth;
 		float Z = ((CameraTransform.position.z - TerrainPosition.z) / DiggingTerrain.terrainData.size.z) * DiggingTerrain.terrainData.alphamapHeight;
 		NearByDitchID = -1;
+		Vector3 temp=Vector3.zero;
+		temp.x = X;
+		temp.z = Z;
+		TheDig.position=temp;
+
 		for (int i=0; i<DitchesCount; i++)
 			if (Mathf.Abs ((int)Ditches [i].x - X) < 4 && Mathf.Abs ((int)Ditches [i].z - Z) < 4) {
 				NearByDitchID = i;
 				break;
 			}
 		if (NearByDitchID != -1) {
+			if (Guy.Level==0)
+				InRightDitch=true;
+			if ((Level1Ditch-Ditches[NearByDitchID]).magnitude<9&&Guy.Level==1)
+				InRightDitch=true;
+			if ((Level2Ditch-Ditches[NearByDitchID]).magnitude<9&&Guy.Level==2)
+				InRightDitch=true;
+			if ((Level3Ditch-Ditches[NearByDitchID]).magnitude<9&&Guy.Level==3)
+				InRightDitch=true;
+			if ((Level4Ditch-Ditches[NearByDitchID]).magnitude<9&&Guy.Level==4)
+				InRightDitch=true;
+			if ((Level5Ditch-Ditches[NearByDitchID]).magnitude<9&&Guy.Level==5)
+				InRightDitch=true;
+
 			if (!InTheDitch) {
 				Keys.KeyText = Keys.KeyText + '\n' + "Press ";
 				Keys.KeyText = Keys.KeyText + Keys.PrimaryActionKey.Key.ToString ();
@@ -203,7 +229,7 @@ public class Dig : MonoBehaviour {
 			Keys.KeyText = Keys.KeyText + '\n' + "Press ";
 			Keys.KeyText = Keys.KeyText + Keys.PrimaryActionKey.Key.ToString ();
 			Keys.KeyText = Keys.KeyText + " to dig";
-			TheDig.position=CameraTransform.position;
+
 			if(Keys.PrimaryActionKey.pressed)
 			{
 				if (PP.GetStaminaFromBar()>2)
@@ -288,7 +314,7 @@ public class Dig : MonoBehaviour {
 					heights[i,j]-=2.0f/DiggingTerrain.terrainData.size.y;
 			DiggingTerrain.terrainData.SetHeightsDelayLOD((int)X-3,(int)Z-3,heights);
 			float[,,] alphamaps;
-			alphamaps=new float[6,7,13];
+			alphamaps=new float[6,7,12];
 			for (int i=0;i<6;i++)
 				for(int j=0;j<7;j++)
 					alphamaps[i,j,7]=1f;

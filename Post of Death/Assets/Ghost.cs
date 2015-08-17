@@ -7,6 +7,7 @@ public class Ghost : MonoBehaviour {
 	public float AttackRidious;
 	public Transform camera;
 	public AudioSource GhostMusic;
+	public AudioSource GhostMusic2;
 	public int GhostOnAttack;
 	public Transform GhostT;
 
@@ -52,6 +53,7 @@ public class Ghost : MonoBehaviour {
 					GhostOnAttack=i;
 					AttackStart=DateTime.Now.TimeOfDay.TotalSeconds;
 					GhostMusic.Play();
+					GhostMusic2.Play();
 					GhostStartAttackPos=Ghosts [i];
 				}
 			}
