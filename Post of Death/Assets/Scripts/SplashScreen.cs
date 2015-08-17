@@ -24,6 +24,11 @@ public class SplashScreen : MonoBehaviour
     public GameObject MenuCheckGO;
 	public Texture secondtexture;
 
+	public Texture texture1;
+	public Texture texture2;
+	public Texture texture3;
+	public Texture texture4;
+
 	void Start () 
     {
 
@@ -88,10 +93,17 @@ public class SplashScreen : MonoBehaviour
     void Update()
     {
         TimeElapsed += Time.deltaTime;
-
-		if (TimeElapsed > 5.0f)
+		;
+		if (TimeElapsed > 5.0f&&PlayerPrefs.GetInt("GuyLevel",0)!=6)
 			SplashScreenGO.GetComponent<RawImage>().texture = secondtexture;
-
+		if (TimeElapsed > 5.0f&&PlayerPrefs.GetInt("GuyLevel",0)==6)
+			SplashScreenGO.GetComponent<RawImage>().texture = texture1;
+		if (TimeElapsed > 10.0f&&PlayerPrefs.GetInt("GuyLevel",0)==6)
+			SplashScreenGO.GetComponent<RawImage>().texture = texture2;
+		if (TimeElapsed > 15.0f&&PlayerPrefs.GetInt("GuyLevel",0)==6)
+			SplashScreenGO.GetComponent<RawImage>().texture = texture3;
+		if (TimeElapsed > 20.0f&&PlayerPrefs.GetInt("GuyLevel",0)==6)
+			SplashScreenGO.GetComponent<RawImage>().texture = texture4;
 		if (TimeElapsed > 50.0f || MenuCheck.SplashScreenWasShown||(Input.GetKeyDown (KeyCode.Space)&&TimeElapsed >5.0))
         {
 
