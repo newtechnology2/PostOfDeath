@@ -28,6 +28,7 @@ public class BedFunctions : MonoBehaviour {
 			Keys.KeyText = Keys.KeyText + '\n' + "Press ";
 			Keys.KeyText = Keys.KeyText + Keys.SleepActionKey.Key.ToString ();
             Keys.KeyText = Keys.KeyText + " to sleep";// + '\n' + "Press ";
+				
 			//Keys.KeyText = Keys.KeyText + Keys.SecondaryActionKey.Key.ToString ();
 			//Keys.KeyText = Keys.KeyText + " to save game";
 

@@ -25,6 +25,8 @@ public class SleepAnim : MonoBehaviour
 
     float TimeElapsed = 0;
 
+	Clock thetimeclock;
+
 	void Start () 
 	{
 		B = FindObjectOfType<BedFunctions>();
@@ -40,6 +42,7 @@ public class SleepAnim : MonoBehaviour
         PlayedReverseAnim = false;
 
         CannotSleepMsg.text = "";
+		thetimeclock = FindObjectOfType<Clock>();
 	}
 	
 	// Update is called once per frame
@@ -52,6 +55,7 @@ public class SleepAnim : MonoBehaviour
 
         if (B.NearBed && Keys.SleepActionKey.pressed && !Played && !AnimComponent.IsPlaying("SleepAnim")) 
 		{
+
             if (!House_Programmer.ShouldBeAbleToSleep)
             {
                 CannotSleepMsg.text = "Cannot sleep from this position. Try another.";
@@ -77,6 +81,7 @@ public class SleepAnim : MonoBehaviour
 
         if (Keys.SleepActionKey.pressed && Played && !AnimComponent.IsPlaying("SleepAnim")) 
         {
+			thetimeclock.SetPastTime(thetimeclock.GetPastTime()+8.0);
             Debug.Log("Reverse Play Sleep Anim");
 
             Body.SetActive(false);
