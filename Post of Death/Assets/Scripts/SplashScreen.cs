@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using UnityEngine.UI;
 using System.Collections;
 
 public class SplashScreen : MonoBehaviour 
@@ -21,6 +22,7 @@ public class SplashScreen : MonoBehaviour
     GameObject EventSystem;
 
     public GameObject MenuCheckGO;
+	public Texture secondtexture;
 
 	void Start () 
     {
@@ -29,7 +31,7 @@ public class SplashScreen : MonoBehaviour
 
 
         //Default resolution
-        Screen.SetResolution(1280, 720, false);
+        //Screen.SetResolution(1280, 720, false);
 
         AllObjects = GameObject.FindObjectsOfType(typeof(Transform)) as Transform[];
         Cam = FindObjectOfType<Camera>();
@@ -85,10 +87,12 @@ public class SplashScreen : MonoBehaviour
 
     void Update()
     {
-
         TimeElapsed += Time.deltaTime;
 
-        if (TimeElapsed > 5.0f || MenuCheck.SplashScreenWasShown)
+		if (TimeElapsed > 5.0f)
+			SplashScreenGO.GetComponent<RawImage>().texture = secondtexture;
+
+		if (TimeElapsed > 50.0f || MenuCheck.SplashScreenWasShown||(Input.GetKeyDown (KeyCode.Space)&&TimeElapsed >5.0))
         {
 
             Cam.GetComponent<CameraRotation>().enabled = true;
