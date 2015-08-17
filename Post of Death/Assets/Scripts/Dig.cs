@@ -75,7 +75,7 @@ public class Dig : MonoBehaviour {
 			MovedToOtherWorld=false;
 		}
        
-		if (SD.FinishedPlayingAnimation&&InRightDitch)
+		if (SD.FinishedPlayingAnimation&&InRightDitch&&InTheDitch)
         {
 			MovedToOtherWorld=true;
             EscMenu.SaveStuff();
