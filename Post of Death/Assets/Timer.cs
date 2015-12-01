@@ -22,7 +22,10 @@ public class Timer : MonoBehaviour {
 			Timertext.text = "Time out, you're stuck at death world"+'\n'+'\n'+"Game Over";
 			lost=true;
 		}
-		if (timesecs + LevelTime - DateTime.Now.TimeOfDay.TotalSeconds < -5.0)
-			Application.LoadLevel ("Menu");
+        if (timesecs + LevelTime - DateTime.Now.TimeOfDay.TotalSeconds < -5.0)
+        {
+            PlayerPrefs.DeleteAll();
+            Application.LoadLevel("Menu");
+        }
 	}
 }
